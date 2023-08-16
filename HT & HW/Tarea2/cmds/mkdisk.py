@@ -31,12 +31,12 @@ class MBR:
 
 
     def createDisk(self):
-        with open("mbr.bin", "wb") as file:
+        with open("mbr.dsk", "wb") as file:
             for i in range(0, self.mbr_tamano):
                 file.write(b'\x00' * 1024 * 1024)
         file.close()
         self.setFecha()
-        with open("mbr.bin", "r+b") as file:
+        with open("mbr.dsk", "r+b") as file:
             file.write(self.encode())
         file.close()
         print("Disco creado exitosamente.")

@@ -6,7 +6,7 @@ def execute():
 
 
 def showDiskData():
-    with open("mbr.bin", "rb") as file:
+    with open("mbr.dsk", "rb") as file:
         data = file.read(24)
         size, date, dsk = struct.unpack("H19sH", data)
         print("Tamaño: " + str(size) + " MB\nFecha: " + date.decode() + "\nDisco DSK SIGN: " + str(dsk) + "\n")

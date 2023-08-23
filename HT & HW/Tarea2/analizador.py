@@ -30,8 +30,14 @@ def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
                 else:  # Sino la encontró
                     return "Error: Comillas no cerradas"
 
-        else:  # SE REALIZA UPPERCASE A LAS PALABRAS
-            words2.append(words[i].lower())
+        else:  # SE REALIZA LOWERCASE A LAS PALABRAS, EXCEPTO TODO LO QUE ESTE DESPUES DE UN =
+            if "=" not in words[i]:
+                words[i] = words[i].lower()
+                words2.append(words[i])
+            else:
+                # SOLO DAR LOWER A LO QUE ESTE ANTES DE UN =
+                words2.append(words[i][:words[i].find("=")].lower() + words[i][words[i].find("="):])                
+
     return analizar_Comando(words2);
 
 
@@ -58,8 +64,14 @@ def analizar_Comando(consoleLine):
 
     # ------------- COMANDO MKDISK -------------
     elif consoleLine[0] == "mkdisk":
+        if ">size=" not in consoleLine or ">path=" not in consoleLine:
+            return "Error: Faltan parámetros obligatorios"
         return mkdisk.execute(consoleLine)
 
+    elif consoleLine[0] == "fdisk":
+        if ">size=" not in consoleLine or ">path=" not in consoleLine or ">name=" not in consoleLine:
+            return "Error: Faltan parámetros obligatorios"
+        
     # ------------- COMANDO REP -------------
     elif consoleLine[0] == "rep":
         return rep.execute()

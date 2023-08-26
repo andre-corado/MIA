@@ -1,5 +1,4 @@
-from cmds import * # Importar módulo de comandos
-from cmds import mkdisk, rep
+import cmds as c # Importar módulo de comandos
 
 
 def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
@@ -70,42 +69,43 @@ def analizar_Comando(consoleLine):
     elif consoleLine[0] == "mkdisk":
         if ">size=" not in consoleLine or ">path=" not in consoleLine:
             return "Error: Faltan parámetros obligatorios"
-        return mkdisk.execute(consoleLine)
+        return c.mkdisk.execute(consoleLine)
 
+    # ------------- COMANDO FDISK -------------
     elif consoleLine[0] == "fdisk":
         if ">size=" not in consoleLine or ">path=" not in consoleLine or ">name=" not in consoleLine:
             return "Error: Faltan parámetros obligatorios"
+        #return c.fdisk.execute(consoleLine)
     
     # ------------- COMANDO RMDISK -------------
     elif consoleLine[0] == "rmdisk":
         if ">path=" not in consoleLine:
             return "Error: Faltan parámetros obligatorios"
-        return rmdisk.execute(consoleLine)
+        return c.rmdisk.execute(consoleLine)
     
     # ------------- COMANDO FDISK -------------
     elif consoleLine[0] == "fdisk":
         if ">path=" not in consoleLine or ">name=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return fdisk.execute(consoleLine)
+        #return c.fdisk.execute(consoleLine)
     
     # ------------- COMANDO MOUNT -------------
     elif consoleLine[0] == "mount":
         if ">path=" not in consoleLine or ">name=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return mount.execute(consoleLine)
+        #return c.mount.execute(consoleLine)
     
     # ------------- COMANDO UNMOUNT -------------
     elif consoleLine[0] == "unmount":
         if ">id=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return unmount.execute(consoleLine)
+        #return c.unmount.execute(consoleLine)
 
     # ------------- COMANDO MKFS -------------
     elif consoleLine[0] == "mkfs":
         if ">id=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return mkfs.execute(consoleLine)
-
+        #return c.mkfs.execute(consoleLine)
     # ===========================================================
     # =========== ADMINISTRACIÓN DE USUARIOS Y GRUPOS ===========
     # ===========================================================
@@ -114,32 +114,32 @@ def analizar_Comando(consoleLine):
     elif consoleLine[0] == "login":
         if ">user=" not in consoleLine or ">pass=" not in consoleLine or ">id=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return login.execute(consoleLine)
+        #return c.login.execute(consoleLine)
 
     # ------------- COMANDO LOGOUT -------------
     elif consoleLine[0] == "logout":
-        #return logout.execute(consoleLine)
+        #return c.logout.execute(consoleLine)
         return
     # ------------- COMANDO MKGRP -------------
     elif consoleLine[0] == "mkgrp":
         if ">name=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return mkgrp.execute(consoleLine)
+        #return c.mkgrp.execute(consoleLine)
     # ------------- COMANDO RMGRP -------------
     elif consoleLine[0] == "rmgrp":
         if ">name=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return rmgrp.execute(consoleLine)
+        #return c.rmgrp.execute(consoleLine)
     # ------------- COMANDO MKUSR -------------
     elif consoleLine[0] == "mkusr":
         if ">user=" not in consoleLine or ">pwd=" not in consoleLine or ">grp=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return mkusr.execute(consoleLine)
+        #return c.mkusr.execute(consoleLine)
     # ------------- COMANDO RMUSR -------------
     elif consoleLine[0] == "rmusr":
         if ">user=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return rmusr.execute(consoleLine)
+        #return c.rmusr.execute(consoleLine)
     
     # ===========================================================
     # ======= ADMINISTRACIÓN DE CARPETAS Y ARCHIVOS =============
@@ -149,65 +149,65 @@ def analizar_Comando(consoleLine):
     elif consoleLine[0] == "mkfile":
         if ">path=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return mkfile.execute(consoleLine)
+        #return c.mkfile.execute(consoleLine)
     # ------------- COMANDO CAT -------------
     elif consoleLine[0] == "cat":
         if ">fileN=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return cat.execute(consoleLine)
+        #return c.cat.execute(consoleLine)
     # ------------- COMANDO REMOVE -------------
     elif consoleLine[0] == "remove":
         if ">path=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return remove.execute(consoleLine)
+        #return c.remove.execute(consoleLine)
     # ------------- COMANDO EDIT -------------
     elif consoleLine[0] == "edit":
         if ">path=" not in consoleLine or ">cont=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return edit.execute(consoleLine)
+        #return c.edit.execute(consoleLine)
     # ------------- COMANDO RENAME -------------
     elif consoleLine[0] == "rename":
         if ">path=" not in consoleLine or ">name=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return rename.execute(consoleLine)
+        #return c.rename.execute(consoleLine)
     # ------------- COMANDO MKDIR -------------
     elif consoleLine[0] == "mkdir":
         if ">path=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return mkdir.execute(consoleLine)
+        #return c.mkdir.execute(consoleLine)
     # ------------- COMANDO COPY -------------
     elif consoleLine[0] == "copy":
         if ">path=" not in consoleLine or ">destino=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return copy.execute(consoleLine)
+        #return c.copy.execute(consoleLine)
     # ------------- COMANDO MOVE -------------
     elif consoleLine[0] == "move":
         if ">path=" not in consoleLine or ">destino=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return move.execute(consoleLine)
+        #return c.move.execute(consoleLine)
     # ------------- COMANDO FIND -------------
     elif consoleLine[0] == "find":
         if ">path=" not in consoleLine or ">name=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return find.execute(consoleLine)
+        #return c.find.execute(consoleLine)
     # ------------- COMANDO CHOWN -------------
     elif consoleLine[0] == "chown":
         if ">path=" not in consoleLine or ">user=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return chown.execute(consoleLine)
+        #return c.chown.execute(consoleLine)
     # ------------- COMANDO CHGRP -------------
     elif consoleLine[0] == "chgrp":
         if ">user=" not in consoleLine or ">grp=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return chgrp.execute(consoleLine)
+        #return c.chgrp.execute(consoleLine)
     # ------------- COMANDO CHMOD -------------
     elif consoleLine[0] == "chmod":
         if ">path=" not in consoleLine or ">ugo=" not in consoleLine:    
             return "Error: Faltan parámetros obligatorios"
-        #return chmod.execute(consoleLine)
+        #return c.chmod.execute(consoleLine)
     # ------------- COMANDO PAUSE -------------
     elif consoleLine[0] == "pause":
-        #return pause.execute(consoleLine)
+        #return c.pause.execute(consoleLine)
         return
     
     # ===========================================================
@@ -216,7 +216,7 @@ def analizar_Comando(consoleLine):
 
     # ------------- COMANDO REP -------------
     elif consoleLine[0] == "rep":
-        return rep.execute()
+        return c.rep.execute()
 
     # ------------- COMANDO EXIT -------------
     elif consoleLine[0] == "exit":

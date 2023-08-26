@@ -1,6 +1,5 @@
 import random
 import datetime
-import struct
 
 
 def execute(consoleLine):
@@ -12,18 +11,32 @@ def execute(consoleLine):
 
 
 class MBR:
-    def __init__(self):
-        self.format = "H19sH"
-
-        self.mbr_tamano = 5
+    def __init__(self, size, fit='F'):
+        self.mbr_tamano = size
         self.mbr_fecha_creacion = ""
-        self.mbr_dsk_signature = random.randint(111, 65535)
-
+        self.mbr_dsk_signature = random.randint(0, 2147483646)
+        self.dsk_fit = fit
+        self.mbr_partition_1 = None
+        self.mbr_partition_2 = None
+        self.mbr_partition_3 = None
+        self.mbr_partition_4 = None
+    
+    # ------------ STRUCTURE ------------
+    # tamano-4 | fecha-19 | signature-4 | fit-1 
+    
     def encode(self):
-        return struct.pack(self.format, self.mbr_tamano, self.mbr_fecha_creacion.encode(), self.mbr_dsk_signature)
+        bytes = bytearray()
+        bytes += self.mbr_tamano.to_bytes(4, byteorder='big')
+        bytes += self.mbr_fecha_creacion.encode()
+        bytes += self.mbr_dsk_signature.to_bytes(4, byteorder='big')
+        bytes += self.dsk_fit.encode()
+        return bytes
 
-    def decode(self, data):
-        return struct.unpack(self.format, data)
+    def decode(self, bytes):
+        self.mbr_tamano = int.from_bytes(bytes[0:4], byteorder='big')
+        self.mbr_fecha_creacion = bytes[4:23].decode()
+        self.mbr_dsk_signature = int.from_bytes(bytes[23:27], byteorder='big')
+        self.dsk_fit = bytes[27:28].decode() 
 
     def setFecha(self):
         # formato = d/m/Y H:M:S y quitar espacios al final
@@ -32,15 +45,11 @@ class MBR:
 
     def createDisk(self):
         with open("mbr.dsk", "wb") as file:
-            for i in range(0, self.mbr_tamano):
-                file.write(b'\x00' * 1024 * 1024)
+            for i in range(self.mbr_tamano):
+                file.write(b'\x00')
         file.close()
         self.setFecha()
         with open("mbr.dsk", "r+b") as file:
             file.write(self.encode())
         file.close()
         print("Disco creado exitosamente.")
-
-
-class Decode:
-    pass

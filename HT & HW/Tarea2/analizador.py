@@ -1,4 +1,4 @@
-import cmds as c # Importar módulo de comandos
+from cmds import mkdisk # Importar módulo de comandos
 
 
 def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
@@ -29,13 +29,13 @@ def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
                 else:  # Sino la encontró
                     return "Error: Comillas no cerradas"
 
-        else:  # SE REALIZA LOWERCASE A LAS PALABRAS, EXCEPTO TODO LO QUE ESTE DESPUES DE UN =
-            if "=" not in words[i]:
-                words[i] = words[i].lower()
-                words2.append(words[i])
-            else:
-                # SOLO DAR LOWER A LO QUE ESTE ANTES DE UN =
-                words2.append(words[i][:words[i].find("=")].lower() + words[i][words[i].find("="):])                
+        else:  # Se realiza lower case a todo excepto si es un path
+            temp = words[i].lower()
+            if temp.startswith(">path="):
+                # Se da lower antes de =
+                words2.append(temp[0:6] + words[i][6:])
+            else:    
+                words2.append(temp)
 
     return analizar_Comando(words2);
 
@@ -67,37 +67,84 @@ def analizar_Comando(consoleLine):
     # ===========================================================
     # ------------- COMANDO MKDISK -------------
     elif consoleLine[0] == "mkdisk":
-        if ">size=" not in consoleLine or ">path=" not in consoleLine:
-            return "Error: Faltan parámetros obligatorios"
-        return c.mkdisk.execute(consoleLine)
+        sizeFound, pathFound = False, False
+        for word in consoleLine:
+            if ">size=" in word:
+                sizeFound = True
+                continue
+            elif ">path=" in word:
+                pathFound = True
+                continue
+            if sizeFound and pathFound:
+                break             
+        if sizeFound and pathFound:
+            return mkdisk.execute(consoleLine)
+        return "Error: Faltan parámetros obligatorios"
 
     # ------------- COMANDO FDISK -------------
     elif consoleLine[0] == "fdisk":
-        if ">size=" not in consoleLine or ">path=" not in consoleLine or ">name=" not in consoleLine:
+        for word in consoleLine:
+            if ">size=" in word:
+                sizeFound = True
+                continue
+            elif ">path=" in word:
+                pathFound = True
+                continue
+            elif ">name=" in word:
+                nameFound = True
+                continue
+            if sizeFound and pathFound and nameFound:
+                break
+        if sizeFound and pathFound and nameFound:
             return "Error: Faltan parámetros obligatorios"
         #return c.fdisk.execute(consoleLine)
     
     # ------------- COMANDO RMDISK -------------
     elif consoleLine[0] == "rmdisk":
-        if ">path=" not in consoleLine:
+        pathFound, nameFound = False, False
+        for word in consoleLine:
+            if ">path=" in word:
+                pathFound = True
+                break
             return "Error: Faltan parámetros obligatorios"
-        return c.rmdisk.execute(consoleLine)
+        #return c.rmdisk.execute(consoleLine)
     
     # ------------- COMANDO FDISK -------------
     elif consoleLine[0] == "fdisk":
-        if ">path=" not in consoleLine or ">name=" not in consoleLine:    
+        pathFound, nameFound = False, False
+        for word in consoleLine:
+            if ">path=" in word:
+                pathFound = True
+                continue
+            elif ">name=" in word:
+                nameFound = True
+                continue            
+        if not pathFound or not nameFound:
             return "Error: Faltan parámetros obligatorios"
         #return c.fdisk.execute(consoleLine)
     
     # ------------- COMANDO MOUNT -------------
     elif consoleLine[0] == "mount":
-        if ">path=" not in consoleLine or ">name=" not in consoleLine:    
+        pathFound, nameFound = False, False
+        for word in consoleLine:
+            if ">path=" in word:
+                pathFound = True
+                continue
+            elif ">name=" in word:
+                nameFound = True
+                continue            
+        if not pathFound or not nameFound:
             return "Error: Faltan parámetros obligatorios"
         #return c.mount.execute(consoleLine)
     
     # ------------- COMANDO UNMOUNT -------------
     elif consoleLine[0] == "unmount":
-        if ">id=" not in consoleLine:    
+        idFound = False
+        for word in consoleLine:
+            if ">id=" in word:
+                idFound = True
+                break
+        if not idFound:
             return "Error: Faltan parámetros obligatorios"
         #return c.unmount.execute(consoleLine)
 

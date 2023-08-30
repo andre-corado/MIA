@@ -1,3 +1,5 @@
+import os
+
 def execute(consoleLine):
     path = consoleLine[1].split("=")[1]
     if not os.path.exists(path):

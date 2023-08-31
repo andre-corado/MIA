@@ -1,4 +1,4 @@
-from analizador import *
+from analizador import split_Command
 
 if __name__ == '__main__':
     # Simular consola de comandos y pedir al usuario que ingrese un comando

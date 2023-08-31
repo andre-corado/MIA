@@ -1,5 +1,5 @@
 import os
-from structs.MBR import MBR, Partition
+from cmds.structs.MBR import MBR, Partition
 
 
 def execute(consoleLine):

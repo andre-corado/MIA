@@ -1,4 +1,4 @@
-from cmds.structs.MBR import MBR
+from cmds.structs.MBR import MBR, Partition
 
 def execute(consoleLine):
     # Default values

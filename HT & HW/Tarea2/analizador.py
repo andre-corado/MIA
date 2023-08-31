@@ -12,13 +12,12 @@ def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
         # ------------- COMILLAS DOBLES -------------
         if words[i].endswith("\""):
             continue
-        if "\"" in words[i]:
+        if words[i].startswith("-path=\"") or words[i].startswith("-id=\""):
          # Se busca la palabra con las siguientes comillas
             for j in range(i + 1, len(words)):
-                if "\"" in words[j]:
+                words[i] = words[i] + " " + words[j]
+                if words[j].endswith("\""):
                     # Se concatena la palabra con las comillas
-                    words[i] = words[i] + " " + words[j]
-                    # Se elimina la palabra con las comillas
                     words2.append(words[i])
                     break
                 # Si no se encontró la palabra con las comillas se retorna error
@@ -32,7 +31,7 @@ def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
                 # SOLO DAR LOWER A LO QUE ESTE ANTES DE UN =
                 temp = words[i][:words[i].find("=")].lower() + words[i][words[i].find("="):]
                 # Si es param path
-                if temp.startswith("-path="):
+                if temp.startswith("-path=") or temp.startswith("-id="):
                     # Si contiene /user/
                     if temp.find("/user/") != -1:
                         # Averiguar usuario actual por terminal con whoami
@@ -232,7 +231,17 @@ def analizar_Comando(consoleLine):
 
     # ------------- COMANDO REP -------------
     elif consoleLine[0] == "rep":
-        return rep.execute()
+        nameFound, pathFound, idFound = False, False, False
+        for i in range(1, len(consoleLine)):
+            if consoleLine[i].startswith("-name="):
+                nameFound = True
+            elif consoleLine[i].startswith("-path="):
+                pathFound = True
+            elif consoleLine[i].startswith("-id="):
+                idFound = True
+        if not nameFound or not pathFound or not idFound:
+            return "Error: Faltan parámetros obligatorios"
+        return rep.execute(consoleLine)
 
     # ------------- COMANDO EXIT -------------
     elif consoleLine[0] == "exit":

@@ -15,7 +15,11 @@ def execute(consoleLine):
         if not os.path.exists(path):
             return 'Error: El disco no existe.'
 
+    # Confirmar eliminacion
+    print('¿Está seguro que desea eliminar el disco? (Y/N)')
+    confirm = input()
+    if not (confirm == 'Y' or confirm == 'y'):
+        return 'Eliminación cancelada.'
     print('Eliminando disco en: ' + path + '...')
-    # pintar puntos suspensivos
     os.remove(path)
     return "Disco eliminado exitosamente.\n"

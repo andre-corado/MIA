@@ -1,10 +1,10 @@
 import os
 import random
 import datetime
-
+import graphviz as gv
 
 class MBR:  # Size = 136 bytes
-    def __init__(self, fit, size):
+    def __init__(self, fit='F', size=0):
         self.mbr_tamano = size
         self.mbr_fecha_creacion = ""
         self.mbr_dsk_signature = random.randint(0, 2147483646)
@@ -112,7 +112,35 @@ class MBR:  # Size = 136 bytes
                 return True
         return False
         
-    
+
+    # Graphviz
+    def getGraph(self):
+        # Encabezado MBR
+        dot = gv.Digraph('cluster_MBR')
+        # cuadrado con todas las subtablas
+
+        with dot.subgraph(name='encabezadoMBR') as b1:
+            b1.attr(label='MBR', shape='box', style='filled', color='lightgrey', width='10', height='5')
+            txt = 'MBR\n'
+            txt += 'Tamaño: ' + str(self.mbr_tamano) + '\n' + 'Fecha Creación: ' + self.mbr_fecha_creacion + '\n'
+            txt += 'Signature: ' + str(self.mbr_dsk_signature) + '\n' + 'Fit: ' + self.dsk_fit
+            b1.node('mbr_tamano', label=txt)
+
+
+        # Obtener subgrafos de particiones
+        '''for partition in self.getPartitions():
+            graph.subgraph(partition.getGraph())
+            # Colocar subgrafos de particiones debajo de MBR
+            graph.edge('mbr_tamano', 'cluster_' + partition.part_name)'''
+
+
+        return dot
+
+
+
+
+
+
 
 class Partition:  # Size = 27 bytes
     def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name=''):
@@ -144,6 +172,15 @@ class Partition:  # Size = 27 bytes
         self.part_start = int.from_bytes(bytes[3:7], byteorder='big', signed=True)
         self.part_s = int.from_bytes(bytes[7:11], byteorder='big')
         self.part_name = bytes[11:27].decode()
+
+    def getGraph(self):
+        if self.part_type == 'P':
+            return self.getPrimaryGraph()
+        elif self.part_type == 'E':
+            return self.getExtendedGraph()
+
+    def getPrimaryGraph(self): # subgraph
+        graph = gv.Digraph('cluster_' + self.part_name)
 
 
 def formatStr(string, size):

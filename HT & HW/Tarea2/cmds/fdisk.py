@@ -1,3 +1,7 @@
+import os
+from structs.MBR import MBR, Partition
+
+
 def execute(consoleLine):
     size = 0
     unit = 'K'
@@ -81,7 +85,42 @@ def execute(consoleLine):
     
 
 def newPartition(size, path, name, type, fit):
-     
+    try:
+        if not os.path.exists(path):
+            return 'Error: Disco no encontrado.'
+        file = open(path, 'rb+')
+        # Leer MBR
+        mbr = MBR()
+        mbr.decode(file.read(136))
+        file.close()
 
+        # Validar que no exista una partición con el mismo nombre
+        if mbr.hasPartitionNamed(name):
+            return 'Error: Ya existe una partición con ese nombre.'
+        
+        # Primarias y extendidas
+        if type == 'P' or type == 'E':            
+            if type == 'E' and mbr.hasExtendedPartition(): # Solo puede haber una extendida
+                return 'Error: Ya existe una partición extendida.'
+            if mbr.canAddPartition(size) == False: # Solo pueden haber 4 particiones primarias y debe caber la nueva
+                return 'Error: No se puede crear la partición.\nNo hay espacio suficiente o las 4 particiones primarias ya están creadas.' 
+            
+            # FF - First Fit
+            # calcular start
+            index = mbr.getPartitionIndexForFF(size)
+            
+
+
+            newPart = Partition('E', type, fit, start, size, name)
+
+        # Lógicas
+        if type == 'L':
+            if not mbr.hasExtendedPartition():
+                return 'Error: No existe una partición extendida aún para una partición lógica.'
+
+
+
+    except:
+        return 'Error: Disco no encontrado.'
     
-    pass
+    

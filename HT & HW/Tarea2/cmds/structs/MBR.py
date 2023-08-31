@@ -73,9 +73,22 @@ class MBR:  # Size = 136 bytes
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]
 
+    def getPartitionIndexForFF(self, size):
+        for i in range(4):
+            partition = self.getPartitions()[i]
+            if partition.part_status == 'N' and partition.part_s >= size:
+                return i
+        return -1
+    
+    def getNewPartitionStart(self, indexPartition):
+        if indexPartition == 0:
+            return 137
+        else:
+            return self.getPartitions()[indexPartition - 1].part_start + self.getPartitions()[indexPartition - 1].part_s
+
 # VALIDACIONES
 
-    def hasExtended(self):
+    def hasExtendedPartition(self):
         for partition in self.getPartitions():
             if partition.part_type == 'E':
                 return True
@@ -87,15 +100,19 @@ class MBR:  # Size = 136 bytes
                 return True
         return False
 
-    def hasFreeSpace(self, size):
-        freePartitions = 0
-        for(partition) in self.getPartitions():
-            if partition.part_status == 'N':
-                freePartitions += 1
-        if freePartitions == 0:
-            return False
-        
+    def hasPartitionNamed(self, name):
+        for partition in self.getPartitions():
+            if partition.part_name == formatStr(name, 16):
+                return True
+        return False
 
+    def canAddPartition(self, size):
+        for partition in self.getPartitions():
+            if partition.part_status == 'N' and partition.part_s >= size:
+                return True
+        return False
+        
+    
 
 class Partition:  # Size = 27 bytes
     def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name=''):

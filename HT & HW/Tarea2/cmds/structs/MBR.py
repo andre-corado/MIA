@@ -73,6 +73,7 @@ class MBR:  # Size = 136 bytes
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]
 
+# FDISK FUNCTIONS
     def getPartitionIndexForFF(self, size):
         for i in range(4):
             partition = self.getPartitions()[i]
@@ -86,8 +87,13 @@ class MBR:  # Size = 136 bytes
         else:
             return self.getPartitions()[indexPartition - 1].part_start + self.getPartitions()[indexPartition - 1].part_s
 
-# VALIDACIONES
+    def canAddPartition(self, size):
+        for partition in self.getPartitions():
+            if partition.part_status == 'N' and partition.part_s >= size:
+                return True
+        return False
 
+# VALIDACIONES
     def hasExtendedPartition(self):
         for partition in self.getPartitions():
             if partition.part_type == 'E':
@@ -104,63 +110,45 @@ class MBR:  # Size = 136 bytes
         for partition in self.getPartitions():
             if partition.part_name == formatStr(name, 16):
                 return True
+        # ! Añadir validación de particiones lógicas
         return False
 
-    def canAddPartition(self, size):
-        for partition in self.getPartitions():
-            if partition.part_status == 'N' and partition.part_s >= size:
-                return True
-        return False
-        
-
-    # Graphviz
-    def getGraph(self):
+    # ======================= Graphviz =========================
+    def getGraph(self, extension='png'):
         # Encabezado MBR
-        dot = gv.Digraph()
-
-        with dot.subgraph(name='encabezadoMBR') as b1:
-            b1.attr(label='MBR')
-            b1.node('Title', 'MBR', shape='plaintext', fontsize='20')
-            b1.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='2', height='1')
+        dot = gv.Digraph(format=extension, name='MBR')
+        with dot.subgraph(name='cluster_encabezadoMBR') as b1:
+            b1.attr(label='MBR', fontsize='30', fillcolor='lightyellow', style='filled')
+            b1.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='3', height='1')
             txt = 'Tamaño: ' + str(self.mbr_tamano) + '\n' + 'Fecha Creación: ' + self.mbr_fecha_creacion + '\n'
             txt += 'Signature: ' + str(self.mbr_dsk_signature) + '\n' + 'Fit: ' + self.dsk_fit
             b1.node('B1', label=txt)
-            b1.edge('Title', 'B1', style='invis')
 
-
-
-        with dot.subgraph(name='part0') as part0:
-            part0.node('Title', 'Partición Primaria', shape='plaintext', fontsize='20')
-            part0.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='2', height='1')
-            txt = 'Status: ' + self.mbr_partition_1.part_status + '\n' + 'Tipo: ' + self.mbr_partition_1.part_type + '\n'
-            txt += 'Fit: ' + self.mbr_partition_1.part_fit + '\n' + 'Start: ' + str(self.mbr_partition_1.part_start) + '\n'
-            txt += 'Size: ' + str(self.mbr_partition_1.part_s) + '\n' + 'Name: '
-            part0.node('B2', label=txt)
-
-        dot.edge('B1', 'B2', style='invis')
-        dot.attr(rank='same', B1='', B2='')
-        dot.attr(ranksep='0.1')
-
-        '''# Obtener subgrafos de particiones
+        # Obtener subgrafos de particiones
         for i in range(len(self.getPartitions())):
             partition = self.getPartitions()[i]
-            nameSubGraph = 'partition' + str(i)
+            nameSubGraph = 'cluster_part' + str(i)
             if partition.part_type == 'P':
                 with dot.subgraph(name=nameSubGraph) as b:
-                    b.attr(label='Partición Primaria', rankdir='TB', style='filled', color='lightgrey', shape='box')
-                    b.node('Title', 'Partición Primaria', shape='plaintext', fontsize='20')
-                    txt = 'Status: ' + partition.part_status + '\n' + 'Tipo: ' + partition.part_type + '\n'
+                    b.attr(label='Partición Primaria', fontsize='20', fillcolor='lightblue', style='filled')
+                    b.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='3', height='1')
+                    txt = 'Status: ' + partition.part_status + '\n' + 'Type: ' + partition.part_type + '\n'
                     txt += 'Fit: ' + partition.part_fit + '\n' + 'Start: ' + str(partition.part_start) + '\n'
                     txt += 'Size: ' + str(partition.part_s) + '\n' + 'Name: ' + partition.part_name
-                    b.node('Info', label=txt, shape='box')
-                    dot.edge('Title', 'Info', style='invis')
+                    b.node(nameSubGraph, label=txt)
             elif partition.part_type == 'E':
                 return 'Error: No se puede graficar partición extendida.'
 
+        # Enlaces
+        for i in range(4):
             if i == 0:
-                dot.edge('Info', 'partition0', style='invis')
+                if self.getPartitions()[i].part_type == 'P':
+                    dot.edge('B1', 'cluster_part' + str(i), style='invis')
             else:
-                dot.edge('partition' + str(i - 1), 'partition' + str(i), style='invis')'''
+                if self.getPartitions()[i].part_type == 'P':
+                    dot.edge('cluster_part' + str(i - 1), 'cluster_part' + str(i), style='invis')
+
+        dot.attr(ranksep='0.1')
 
         return dot
 

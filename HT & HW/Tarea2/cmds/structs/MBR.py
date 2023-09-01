@@ -49,6 +49,16 @@ class MBR:  # Size = 136 bytes
         # formato = d/m/Y H:M:S y quitar espacios al final
         self.mbr_fecha_creacion = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S").rstrip()
 
+    def setPartition(self, index, partition):
+        if index == 0:
+            self.mbr_partition_1 = partition
+        elif index == 1:
+            self.mbr_partition_2 = partition
+        elif index == 2:
+            self.mbr_partition_3 = partition
+        elif index == 3:
+            self.mbr_partition_4 = partition
+
     def createDisk(self, path):
         print('Creando disco en :' + path + '...')
         if path.startswith('\"'):
@@ -65,33 +75,64 @@ class MBR:  # Size = 136 bytes
                 file.write(b'\x00')
         file.close()
         self.setFecha()
-        with open(path, "r+b") as file:
+        self.updateDisk(path)
+        print("Disco creado exitosamente.")
+
+    def updateDisk(self, path):
+        with open(path, "wb") as file:
             file.write(self.encode())
         file.close()
-        print("Disco creado exitosamente.")
+        print("Disco actualizado exitosamente.")
 
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]
 
 # FDISK FUNCTIONS
+
     def getPartitionIndexForFF(self, size):
         for i in range(4):
             partition = self.getPartitions()[i]
-            if partition.part_status == 'N' and partition.part_s >= size:
+            if partition.part_status == 'N' and self.partitionSizeIsCorrect(i, size):
                 return i
         return -1
     
-    def getNewPartitionStart(self, indexPartition):
+    def getStartForFF(self, indexPartition):
         if indexPartition == 0:
             return 137
         else:
             return self.getPartitions()[indexPartition - 1].part_start + self.getPartitions()[indexPartition - 1].part_s
 
-    def canAddPartition(self, size):
-        for partition in self.getPartitions():
-            if partition.part_status == 'N' and partition.part_s >= size:
-                return True
-        return False
+    def partitionSizeIsCorrect(self, partIndex ,size): # Validates if the size is correct for a new partition and if there is enough space between partitions
+        if partIndex == 0:
+            # Encontrar tope izquierdo y derecho del espacio libre
+            left = 137
+            right = self.mbr_tamano
+            for i in range(1, 4):
+                partition = self.getPartitions()[i]
+                if partition.part_status == 'N':
+                    continue
+                right = partition.part_start
+                break
+            # Validar que el tamaño sea correcto
+            if size > (right - left) or (left + size) > self.mbr_tamano:
+                return False
+            return True
+        else:
+            # Encontrar tope izquierdo y derecho del espacio libre
+            left = self.getPartitions()[partIndex - 1].part_start + self.getPartitions()[partIndex - 1].part_s
+            right = self.mbr_tamano
+            for i in range(partIndex + 1, 4):
+                partition = self.getPartitions()[i]
+                if partition.part_status == 'N':
+                    continue
+                right = partition.part_start
+                break
+            # Validar que el tamaño sea correcto
+            if size > (right - left) or (left + size) > self.mbr_tamano:
+                return False
+            return True
+
+
 
 # VALIDACIONES
     def hasExtendedPartition(self):
@@ -108,7 +149,7 @@ class MBR:  # Size = 136 bytes
 
     def hasPartitionNamed(self, name):
         for partition in self.getPartitions():
-            if partition.part_name == formatStr(name, 16):
+            if partition.part_name == name:
                 return True
         # ! Añadir validación de particiones lógicas
         return False
@@ -159,7 +200,7 @@ class MBR:  # Size = 136 bytes
 
 
 class Partition:  # Size = 27 bytes
-    def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name='asd'):
+    def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name=''):
         self.part_status = status  # Char
         self.part_type = type  # Char P o E
         self.part_fit = fit  # Char B, F o W
@@ -178,7 +219,7 @@ class Partition:  # Size = 27 bytes
         bytes += self.part_fit.encode()
         bytes += self.part_start.to_bytes(4, byteorder='big', signed=True)
         bytes += self.part_s.to_bytes(4, byteorder='big')
-        bytes += self.part_name.encode()
+        bytes += formatStr(self.part_name, 16).encode()
         return bytes
 
     def decode(self, bytes):

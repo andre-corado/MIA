@@ -46,13 +46,6 @@ def execute(consoleLine):
                 fit = consoleLine[i][5:].upper()
                 if fit != 'BF' and fit != 'FF' and fit != 'WF':
                     return 'Error: Fit no válido.'
-                else:
-                    if fit == 'BF':
-                        fit = 'B'
-                    elif fit == 'FF':
-                        fit = 'F'
-                    elif fit == 'WF':
-                        fit = 'W'
             elif consoleLine[i].startswith('-delete='):
                 delete = consoleLine[i][8:].upper()
                 if delete != 'FULL':
@@ -72,8 +65,13 @@ def execute(consoleLine):
                 size *= 1024
             elif unit == 'M':
                 size *= 1024 * 1024
-            newPartition(size, path, name, type, fit)
-            pass
+            if fit == 'BF':
+                fit = 'B'
+            elif fit == 'FF':
+                fit = 'F'
+            elif fit == 'WF':
+                fit = 'W'
+            return newPartition(size, path, name, type, fit)
         elif addFound:
             # Se modifica el tamaño de una partición
             pass
@@ -88,11 +86,10 @@ def newPartition(size, path, name, type, fit):
     try:
         if not os.path.exists(path):
             return 'Error: Disco no encontrado.'
-        file = open(path, 'rb+')
-        # Leer MBR
-        mbr = MBR()
-        mbr.decode(file.read(136))
-        file.close()
+        with open(path, 'rb') as file:
+            mbr = MBR()
+            mbr.decode(file.read(136))
+            file.close()
 
         # Validar que no exista una partición con el mismo nombre
         if mbr.hasPartitionNamed(name):
@@ -102,16 +99,19 @@ def newPartition(size, path, name, type, fit):
         if type == 'P' or type == 'E':            
             if type == 'E' and mbr.hasExtendedPartition(): # Solo puede haber una extendida
                 return 'Error: Ya existe una partición extendida.'
-            if mbr.canAddPartition(size) == False: # Solo pueden haber 4 particiones primarias y debe caber la nueva
-                return 'Error: No se puede crear la partición.\nNo hay espacio suficiente o las 4 particiones primarias ya están creadas.' 
+            if not mbr.hasFreePrimaryPartition: # Solo pueden haber 4 particiones primarias
+                return 'Error: No se puede crear la partición.\nLas 4 particiones primarias ya están creadas.'
             
             # FF - First Fit
-            # calcular start
-            index = mbr.getPartitionIndexForFF(size)
-            
-
-
-            newPart = Partition('E', type, fit, start, size, name)
+            index = mbr.getPartitionIndexForFF(size) # Obtener indice de partición para FF
+            if index == -1:
+                return ('Error: No hay espacio suficiente para crear la partición o ya se encuentran 4 particiones '
+                        'creadas.')
+            start = mbr.getStartForFF(index)
+            newpartition = Partition(status='1', type=type, fit=fit, start=start, size=size, name=name)
+            mbr.setPartition(index, newpartition)
+            mbr.updateDisk(path)
+            return 'Partición creada exitosamente.'
 
         # Lógicas
         if type == 'L':

@@ -51,6 +51,7 @@ def makeMBRTable(tablePath, diskPath):
         elif tablePath.endswith('.svg'):
             mbr.getGraph().render('MBR', view=True, format='svg')
         else:
+            file.close()
             return 'Error: Formato de reporte no válido.'
     file.close()
     return 'Tabla MBR creada exitosamente.'

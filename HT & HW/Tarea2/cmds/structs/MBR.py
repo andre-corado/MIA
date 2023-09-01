@@ -116,23 +116,51 @@ class MBR:  # Size = 136 bytes
     # Graphviz
     def getGraph(self):
         # Encabezado MBR
-        dot = gv.Digraph('cluster_MBR')
-        # cuadrado con todas las subtablas
+        dot = gv.Digraph()
 
         with dot.subgraph(name='encabezadoMBR') as b1:
-            b1.attr(label='MBR', shape='box', style='filled', color='lightgrey', width='10', height='5')
-            txt = 'MBR\n'
-            txt += 'Tamaño: ' + str(self.mbr_tamano) + '\n' + 'Fecha Creación: ' + self.mbr_fecha_creacion + '\n'
+            b1.attr(label='MBR')
+            b1.node('Title', 'MBR', shape='plaintext', fontsize='20')
+            b1.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='2', height='1')
+            txt = 'Tamaño: ' + str(self.mbr_tamano) + '\n' + 'Fecha Creación: ' + self.mbr_fecha_creacion + '\n'
             txt += 'Signature: ' + str(self.mbr_dsk_signature) + '\n' + 'Fit: ' + self.dsk_fit
-            b1.node('mbr_tamano', label=txt)
+            b1.node('B1', label=txt)
+            b1.edge('Title', 'B1', style='invis')
 
 
-        # Obtener subgrafos de particiones
-        '''for partition in self.getPartitions():
-            graph.subgraph(partition.getGraph())
-            # Colocar subgrafos de particiones debajo de MBR
-            graph.edge('mbr_tamano', 'cluster_' + partition.part_name)'''
 
+        with dot.subgraph(name='part0') as part0:
+            part0.node('Title', 'Partición Primaria', shape='plaintext', fontsize='20')
+            part0.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='2', height='1')
+            txt = 'Status: ' + self.mbr_partition_1.part_status + '\n' + 'Tipo: ' + self.mbr_partition_1.part_type + '\n'
+            txt += 'Fit: ' + self.mbr_partition_1.part_fit + '\n' + 'Start: ' + str(self.mbr_partition_1.part_start) + '\n'
+            txt += 'Size: ' + str(self.mbr_partition_1.part_s) + '\n' + 'Name: '
+            part0.node('B2', label=txt)
+
+        dot.edge('B1', 'B2', style='invis')
+        dot.attr(rank='same', B1='', B2='')
+        dot.attr(ranksep='0.1')
+
+        '''# Obtener subgrafos de particiones
+        for i in range(len(self.getPartitions())):
+            partition = self.getPartitions()[i]
+            nameSubGraph = 'partition' + str(i)
+            if partition.part_type == 'P':
+                with dot.subgraph(name=nameSubGraph) as b:
+                    b.attr(label='Partición Primaria', rankdir='TB', style='filled', color='lightgrey', shape='box')
+                    b.node('Title', 'Partición Primaria', shape='plaintext', fontsize='20')
+                    txt = 'Status: ' + partition.part_status + '\n' + 'Tipo: ' + partition.part_type + '\n'
+                    txt += 'Fit: ' + partition.part_fit + '\n' + 'Start: ' + str(partition.part_start) + '\n'
+                    txt += 'Size: ' + str(partition.part_s) + '\n' + 'Name: ' + partition.part_name
+                    b.node('Info', label=txt, shape='box')
+                    dot.edge('Title', 'Info', style='invis')
+            elif partition.part_type == 'E':
+                return 'Error: No se puede graficar partición extendida.'
+
+            if i == 0:
+                dot.edge('Info', 'partition0', style='invis')
+            else:
+                dot.edge('partition' + str(i - 1), 'partition' + str(i), style='invis')'''
 
         return dot
 
@@ -143,7 +171,7 @@ class MBR:  # Size = 136 bytes
 
 
 class Partition:  # Size = 27 bytes
-    def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name=''):
+    def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name='asd'):
         self.part_status = status  # Char
         self.part_type = type  # Char P o E
         self.part_fit = fit  # Char B, F o W
@@ -171,16 +199,10 @@ class Partition:  # Size = 27 bytes
         self.part_fit = bytes[2:3].decode()
         self.part_start = int.from_bytes(bytes[3:7], byteorder='big', signed=True)
         self.part_s = int.from_bytes(bytes[7:11], byteorder='big')
-        self.part_name = bytes[11:27].decode()
+        self.part_name = bytes[11:27].decode().replace('\x00', '')
 
-    def getGraph(self):
-        if self.part_type == 'P':
-            return self.getPrimaryGraph()
-        elif self.part_type == 'E':
-            return self.getExtendedGraph()
 
-    def getPrimaryGraph(self): # subgraph
-        graph = gv.Digraph('cluster_' + self.part_name)
+
 
 
 def formatStr(string, size):
@@ -189,3 +211,4 @@ def formatStr(string, size):
     elif len(string) > size:
         string = string[:size]
     return string
+

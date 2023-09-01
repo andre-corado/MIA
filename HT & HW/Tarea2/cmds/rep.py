@@ -1,3 +1,4 @@
+import os.path
 import struct
 # Utilizar Graphviz
 from graphviz import Digraph
@@ -27,18 +28,29 @@ def execute(consoleLine):
             if len(ruta) < 1:
                 return 'Error: Ruta no puede ser vacío.'
 
-        if name == 'MBR':
-            return makeMBRTable(path, id)
+    if name == 'MBR':
+        return makeMBRTable(path, id)
 
 
 
 
 def makeMBRTable(tablePath, diskPath):
     # Leer disco
-        with open(diskPath, "rb") as file:
-            mbr = MBR()
-            mbr.decode(file.read(136))
-            mbr.getGraph().render('MBR', view=True)
-            # guardar imagen jpg en tablePath
-            return 'Tabla MBR creada exitosamente.'
-        file.close()
+    if not os.path.exists(diskPath):
+        return 'Error: No existe el disco.'
+    with open(diskPath, "rb") as file:
+        mbr = MBR()
+        mbr.decode(file.read(136))
+        if tablePath.endswith('.jpg'):
+            # render en jpg
+            mbr.getGraph().render('MBR', view=True, format='jpg')
+        elif tablePath.endswith('.png'):
+            mbr.getGraph().render('MBR', view=True, format='png')
+        elif tablePath.endswith('.pdf'):
+            mbr.getGraph().render('MBR', view=True, format='pdf')
+        elif tablePath.endswith('.svg'):
+            mbr.getGraph().render('MBR', view=True, format='svg')
+        else:
+            return 'Error: Formato de reporte no válido.'
+    file.close()
+    return 'Tabla MBR creada exitosamente.'

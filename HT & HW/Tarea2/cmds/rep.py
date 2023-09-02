@@ -41,17 +41,30 @@ def makeMBRTable(tablePath, diskPath):
     with open(diskPath, "rb") as file:
         mbr = MBR()
         mbr.decode(file.read(136))
-        if tablePath.endswith('.jpg'):
-            # render en jpg
-            mbr.getGraph().render('MBR', view=True, format='jpg')
-        elif tablePath.endswith('.png'):
-            mbr.getGraph().render('MBR', view=True, format='png')
-        elif tablePath.endswith('.pdf'):
-            mbr.getGraph().render('MBR', view=True, format='pdf')
-        elif tablePath.endswith('.svg'):
-            mbr.getGraph().render('MBR', view=True, format='svg')
+        file.close()
+        if ".jpg" in tablePath or ".png" in tablePath or ".pdf" in tablePath:
+            if not tablePath.endswith("\""):
+                ext = tablePath[-3:]
+                tablePath = tablePath[:-4]
+            else:
+                ext = tablePath[-4:-1]
+                tablePath = tablePath[1:-5]
+            dot = mbr.getGraph(ext)
+
+            # Verificar si existe directorio y crearlo si no existe
+            words = tablePath.split('/')
+            dir = ''
+            for i in range(len(words) - 1):
+                dir += words[i] + '/'
+            if os.path.exists(dir) == False:
+                os.makedirs(dir)
+
+            # Renderizar dot en table path
+            dot.render(tablePath, view=True)
+
+            # Borrar archivos temporales
+            os.remove(tablePath)
         else:
-            file.close()
             return 'Error: Formato de reporte no válido.'
     file.close()
     return 'Tabla MBR creada exitosamente.'

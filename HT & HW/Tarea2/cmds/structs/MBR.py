@@ -3,6 +3,7 @@ import random
 import datetime
 import graphviz as gv
 
+
 class MBR:  # Size = 136 bytes
     def __init__(self, fit='F', size=0):
         self.mbr_tamano = size
@@ -62,9 +63,9 @@ class MBR:  # Size = 136 bytes
     def createDisk(self, path):
         print('Creando disco en :' + path + '...')
         if path.startswith('\"'):
-           path = path[1:-1]
-           if os.path.exists(os.path.dirname(path)) == False:
-               # Crear directorio
+            path = path[1:-1]
+            if os.path.exists(os.path.dirname(path)) == False:
+                # Crear directorio
                 os.makedirs(os.path.dirname(path))
         else:
             if os.path.exists(os.path.dirname(path)) == False:
@@ -87,7 +88,7 @@ class MBR:  # Size = 136 bytes
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]
 
-# FDISK FUNCTIONS
+    # FDISK FUNCTIONS
 
     def getPartitionIndexForFF(self, size):
         for i in range(4):
@@ -95,14 +96,15 @@ class MBR:  # Size = 136 bytes
             if partition.part_status == 'N' and self.partitionSizeIsCorrect(i, size):
                 return i
         return -1
-    
+
     def getStartForFF(self, indexPartition):
         if indexPartition == 0:
             return 137
         else:
             return self.getPartitions()[indexPartition - 1].part_start + self.getPartitions()[indexPartition - 1].part_s
 
-    def partitionSizeIsCorrect(self, partIndex ,size): # Validates if the size is correct for a new partition and if there is enough space between partitions
+    def partitionSizeIsCorrect(self, partIndex,
+                               size):  # Validates if the size is correct for a new partition and if there is enough space between partitions
         if partIndex == 0:
             # Encontrar tope izquierdo y derecho del espacio libre
             left = 137
@@ -132,15 +134,13 @@ class MBR:  # Size = 136 bytes
                 return False
             return True
 
-
-
-# VALIDACIONES
+    # VALIDACIONES
     def hasExtendedPartition(self):
         for partition in self.getPartitions():
             if partition.part_type == 'E':
                 return True
         return False
-    
+
     def hasFreePrimaryPartition(self):
         for partition in self.getPartitions():
             if partition.part_status == 'N':
@@ -194,11 +194,6 @@ class MBR:  # Size = 136 bytes
         return dot
 
 
-
-
-
-
-
 class Partition:  # Size = 27 bytes
     def __init__(self, status='N', type='P', fit='F', start=-1, size=0, name=''):
         self.part_status = status  # Char
@@ -231,13 +226,9 @@ class Partition:  # Size = 27 bytes
         self.part_name = bytes[11:27].decode().replace('\x00', '')
 
 
-
-
-
 def formatStr(string, size):
     if len(string) < size:
         string += (size - len(string)) * '\x00'
     elif len(string) > size:
         string = string[:size]
     return string
-

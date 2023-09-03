@@ -86,7 +86,7 @@ def newPartition(size, path, name, type, fit):
     try:
         if not os.path.exists(path):
             return 'Error: Disco no encontrado.'
-        with open(path, 'rb') as file:
+        with open(path, 'r+b') as file:
             mbr = MBR()
             mbr.decode(file.read(136))
             file.close()

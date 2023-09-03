@@ -72,18 +72,17 @@ class MBR:  # Size = 136 bytes
                 # Crear directorio
                 os.makedirs(os.path.dirname(path))
         with open(path, "wb") as file:
-            for i in range(self.mbr_tamano):
-                file.write(b'\x00')
-        file.close()
+            file.write(b'\x00' * self.mbr_tamano)
+            file.close()
         self.setFecha()
         self.updateDisk(path)
         print("Disco creado exitosamente.")
 
     def updateDisk(self, path):
-        with open(path, "wb") as file:
+        with open(path, "r+b") as file:
             file.write(self.encode())
-        file.close()
-        print("Disco actualizado exitosamente.")
+            file.close()
+        print("MBR actualizado en el disco.")
 
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]

@@ -55,7 +55,7 @@ def makeMBRTable(tablePath, diskPath):
         else:
             ext = tablePath[-4:-1]
             tablePath = tablePath[1:-5]
-        dot = mbr.getGraph(ext)
+        dot = mbr.getGraph(ext, diskPath)
         # Verificar si existe directorio y crearlo si no existe
         dir = getDirFromPath(tablePath)
         if os.path.exists(dir) == False:
@@ -65,7 +65,7 @@ def makeMBRTable(tablePath, diskPath):
         dot.render(tablePath, view=True)
 
         # Borrar archivos temporales
-        os.remove(tablePath)
+        #os.remove(tablePath)
     else:
         return 'Error: Formato de reporte no válido.'
     return 'Tabla MBR creada exitosamente.'
@@ -78,6 +78,7 @@ def makeDiskTable(tablePath, diskPath):
         def __init__(self, size, tipo):
             self.size = size
             self.type = tipo
+            self.ebr = None
 
     mbr = getMBRFromDisk(diskPath)
     if isinstance(mbr, str):
@@ -107,31 +108,45 @@ def makeDiskTable(tablePath, diskPath):
         for i in range(4):
             partition = mbr.getPartitions()[i]
             if partition.part_status != 'N':
-
                 if partition.part_type == 'P':
-                    if i == 0:
-                        if left == partition.part_start:
-                            bloques.append(
-                                Bloque(str(round((partition.part_s / (finishDisk - 136)) * 100)) + '%', 'Primaria'))
-                            left = partition.part_start + partition.part_s
-                        else:
-                            bloques.append(
-                                Bloque(str(round(((partition.part_start - left) / (finishDisk - 136)) * 100)) + '%', 'Libre'))
-                            bloques.append(
-                                Bloque(str(round((partition.part_s / (finishDisk - 136)) * 100)) + '%', 'Primaria'))
-                            left = partition.part_start + partition.part_s
+                    if left == partition.part_start:
+                        bloques.append(
+                            Bloque(str(round((partition.part_s / (finishDisk - 136)) * 100)) + '%', 'Primaria'))
+                        left = partition.part_start + partition.part_s
+                    else:
+                        bloques.append(
+                            Bloque(str(round(((partition.part_start - left) / (finishDisk - 136)) * 100)) + '%', 'Libre'))
+                        bloques.append(
+                            Bloque(str(round((partition.part_s / (finishDisk - 136)) * 100)) + '%', 'Primaria'))
+                        left = partition.part_start + partition.part_s
                 if partition.part_type == 'E':
-                    if i == 0:
-                        if left == partition.part_start:
-                            bloques.append(
-                                Bloque(str((partition.part_s / (finishDisk - 136)) * 100) + '%', 'Extendida'))
-                            left = partition.part_start + partition.part_s
-                        else:
-                            bloques.append(
-                                Bloque(str(((partition.part_start - left) / (finishDisk - 136)) * 100) + '%', 'Libre'))
-                            bloques.append(
-                                Bloque(str((partition.part_s / (finishDisk - 136)) * 100) + '%', 'Extendida'))
-                            left = partition.part_start + partition.part_s
+                    extendida = Bloque(tipo='Extendida', size=0)
+                    # Crear subbloques con las particiones lógicas
+                    ebrs = mbr.getLogicPartitions(diskPath)
+                    subbloques = []
+                    for ebr in ebrs:
+                        if ebr.part_status != 'N':
+                            if left == ebr.part_start:
+                                subbloques.append(
+                                    Bloque(str(round((ebr.part_s / (finishDisk - 136)) * 100)) + '%', 'Lógica'))
+                                left = ebr.part_start + ebr.part_s
+                            else:
+                                subbloques.append(
+                                    Bloque(str(round(((ebr.part_start - left) / (finishDisk - 136)) * 100)) + '%',
+                                           'Libre'))
+                                subbloques.append(
+                                    Bloque(str(round((ebr.part_s / (finishDisk - 136)) * 100)) + '%', 'Lógica'))
+                                left = ebr.part_start + ebr.part_s
+                    if len(subbloques) == 0:
+                        # Añadir bloque con toda la extendida vacío
+                        subbloques.append(Bloque(str(round((partition.part_s / (finishDisk - 136)) * 100)) + '%', 'Libre'))
+                        left = partition.part_start + partition.part_s
+                    # Si hay espacio libre al final de la extendida
+                    if left != (partition.part_start + partition.part_s):
+                        subbloques.append(
+                            Bloque(str(round(((extendida.size - left) / (finishDisk - 136)) * 100)) + '%', 'Libre'))
+                    extendida.ebr = subbloques
+                    bloques.append(extendida)
 
         # Si hay espacio libre al final del disco
         if left != mbr.mbr_tamano:
@@ -142,19 +157,33 @@ def makeDiskTable(tablePath, diskPath):
             bloque = bloques.pop()
             if bloque.type == 'Libre':
                 with disk.subgraph(name='cluster_Libre' + str(i)) as libre:
-                    libre.attr(label='Libre', fontsize='20', fillcolor='lightblue', style='filled')
-                    libre.node('libre' + str(i), label=bloque.size, shape='box', fontsize='15', fillcolor='lightblue',
+                    libre.attr(label='Libre', fontsize='20', fillcolor='lightgreen', style='filled')
+                    libre.node('libre' + str(i), label=bloque.size, shape='box', fontsize='15', fillcolor='lightgreen',
                                style='filled', color='transparent')
             elif bloque.type == 'Primaria':
                 with disk.subgraph(name='cluster_Primaria' + str(i)) as primaria:
-                    primaria.attr(label='Primaria', fontsize='20', fillcolor='lightgreen', style='filled')
+                    primaria.attr(label='Primaria', fontsize='20', fillcolor='lightblue', style='filled')
                     primaria.node('primaria' + str(i), label=bloque.size, shape='box', fontsize='15',
-                                  fillcolor='lightgreen', style='filled', color='transparent')
+                                  fillcolor='lightblue', style='filled', color='transparent')
             elif bloque.type == 'Extendida':
-                with disk.subgraph(name='cluster_Extendida' + str(i)) as extendida:
+                with disk.subgraph(name='cluster_Extendida') as extendida:
                     extendida.attr(label='Extendida', fontsize='20', fillcolor='lightpink', style='filled')
-                    extendida.node('extendida' + str(i), label=bloque.size, shape='box', fontsize='15',
-                                   fillcolor='lightpink', style='filled', color='transparent')
+                # Añadir subbloques con .pop()
+                    for j in range(len(bloque.ebr)):
+                        subbloque = bloque.ebr.pop()
+                        if subbloque.type == 'Libre':
+                            with extendida.subgraph(name='cluster_Libre' + str(j)) as libre:
+                                libre.attr(label='Libre', fontsize='20', fillcolor='lightgreen', style='filled')
+                                libre.node('libre' + str(i) + str(j), label=subbloque.size, shape='box',
+                                           fontsize='15', fillcolor='lightgreen', style='filled',
+                                           color='transparent')
+                        elif subbloque.type == 'Lógica':
+                            with extendida.subgraph(name='cluster_Lógica' + str(j)) as logica:
+                                logica.attr(label='Lógica', fontsize='20', fillcolor='lightblue', style='filled')
+                                logica.node('logica' + str(i) + str(j), label=subbloque.size, shape='box',
+                                            fontsize='15', fillcolor='lightblue', style='filled',
+                                            color='transparent')
+
 
         # Caja que contiene el MBR
         with disk.subgraph(name='cluster_MBR') as mbrbox:

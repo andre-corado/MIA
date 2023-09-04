@@ -87,6 +87,20 @@ class MBR:  # Size = 136 bytes
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]
 
+    def getLogicPartitions(self, path):
+        partitions = []
+        partition = self.getExtendedPartition()
+        with open(path, 'r+b') as file:
+            file.seek(partition.part_start)
+            ebr = EBR()
+            ebr.decode(file.read(30))
+            while ebr.part_next != -1:
+                partitions.append(ebr)
+                file.seek(ebr.part_next)
+                ebr.decode(file.read(30))
+            partitions.append(ebr)
+            file.close()
+        return partitions
     # FDISK FUNCTIONS
 
     def getPartitionIndexForFF(self, size):
@@ -153,8 +167,29 @@ class MBR:  # Size = 136 bytes
         # ! Añadir validación de particiones lógicas
         return False
 
+    # ==================== EXTENDED PARTITION ====================
+
+    def getExtendedPartition(self):
+        for partition in self.getPartitions():
+            if partition.part_type == 'E':
+                return partition
+        return None
+
+    def addFirstEBR(self, path):
+        try:
+            extPart = self.getExtendedPartition()
+            with open(path, 'r+b') as file:
+                file.seek(extPart.part_start)
+                ebr = EBR()
+                file.write(ebr.encode())
+                file.close()
+        except Exception as e:
+            print(e)
+
+
+
     # ======================= Graphviz =========================
-    def getGraph(self, extension='png'):
+    def getGraph(self, extension='png', path=''):
         # Encabezado MBR
         dot = gv.Digraph(format=extension, name='MBR')
         with dot.subgraph(name='cluster_encabezadoMBR') as b1:
@@ -163,7 +198,7 @@ class MBR:  # Size = 136 bytes
             txt = 'Tamaño: ' + str(self.mbr_tamano) + '\n' + 'Fecha Creación: ' + self.mbr_fecha_creacion + '\n'
             txt += 'Signature: ' + str(self.mbr_dsk_signature) + '\n' + 'Fit: ' + self.dsk_fit
             b1.node('B1', label=txt)
-
+        numlogicPart=0
         # Obtener subgrafos de particiones
         for i in range(len(self.getPartitions())):
             partition = self.getPartitions()[i]
@@ -177,16 +212,39 @@ class MBR:  # Size = 136 bytes
                     txt += 'Size: ' + str(partition.part_s) + '\n' + 'Name: ' + partition.part_name
                     b.node(nameSubGraph, label=txt)
             elif partition.part_type == 'E':
-                return 'Error: No se puede graficar partición extendida.'
+                with dot.subgraph(name=nameSubGraph) as b:
+                    b.attr(label='Partición Extendida', fontsize='20', fillcolor='blue', style='filled', fontcolor='white')
+                    b.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='3', height='1')
+                    txt = 'Status: ' + partition.part_status + '\n' + 'Type: ' + partition.part_type + '\n'
+                    txt += 'Fit: ' + partition.part_fit + '\n' + 'Start: ' + str(partition.part_start) + '\n'
+                    txt += 'Size: ' + str(partition.part_s) + '\n' + 'Name: ' + partition.part_name
+                    b.node(nameSubGraph, label=txt)
+
+                # Obtener subgrafos de EBRs
+
+                for ebr in self.getLogicPartitions(path):
+                    namesubgraph2 = 'cluster_ebr' + str(numlogicPart)
+                    with dot.subgraph(name=namesubgraph2) as e:
+                        e.attr(label='Partición Lógica', fontsize='20', fillcolor='darkgreen', style='filled', fontcolor='white')
+                        e.node_attr.update(shape='box', style='filled', fillcolor='lightgray', width='2', height='1')
+                        txt = 'Status: ' + ebr.part_status + '\n' + 'Fit: ' + ebr.part_fit + '\n'
+                        txt += 'Start: ' + str(ebr.part_start) + '\n' + 'Size: ' + str(ebr.part_s) + '\n'
+                        txt += 'Next: ' + str(ebr.part_next) + '\n' + 'Name: ' + ebr.part_name
+                        e.node(namesubgraph2, label=txt)
+                    numlogicPart += 1
 
         # Enlaces
+        lastSubgraph = 'B1'
         for i in range(4):
-            if i == 0:
-                if self.getPartitions()[i].part_type == 'P':
-                    dot.edge('B1', 'cluster_part' + str(i), style='invis')
-            else:
-                if self.getPartitions()[i].part_type == 'P':
-                    dot.edge('cluster_part' + str(i - 1), 'cluster_part' + str(i), style='invis')
+            if self.getPartitions()[i].part_type == 'P':
+                dot.edge(lastSubgraph, 'cluster_part' + str(i), style='invis')
+                lastSubgraph = 'cluster_part' + str(i)
+            elif self.getPartitions()[i].part_type == 'E':
+                dot.edge(lastSubgraph, 'cluster_part'+str(i), style='invis')
+                lastSubgraph = 'cluster_part'+str(i)
+                for j in range(numlogicPart):
+                    dot.edge(lastSubgraph, 'cluster_ebr'+str(j), style='invis')
+                    lastSubgraph = 'cluster_ebr'+str(j)
 
         dot.attr(ranksep='0.1')
 
@@ -231,3 +289,36 @@ def formatStr(string, size):
     elif len(string) > size:
         string = string[:size]
     return string
+
+
+class EBR:
+
+    # ESTRUCTURA
+    # status-1 | fit-1 | start-4 | size-4 | next-4 | name-16
+    # <-- 30 bytes -->
+
+    def __init__(self, status='N', fit='F', start=0, size=0, next=-1, name=''):
+        self.part_status = status  # Char
+        self.part_fit = fit  # Char B, F o W
+        self.part_start = start  # Int4 signed
+        self.part_s = size  # Int4
+        self.part_next = next  # Int4
+        self.part_name = formatStr(name, 16)
+
+    def encode(self):
+        bytes = bytearray()
+        bytes += self.part_status.encode()
+        bytes += self.part_fit.encode()
+        bytes += self.part_start.to_bytes(4, byteorder='big')
+        bytes += self.part_s.to_bytes(4, byteorder='big')
+        bytes += self.part_next.to_bytes(4, byteorder='big', signed=True)
+        bytes += formatStr(self.part_name, 16).encode()
+        return bytes
+
+    def decode(self, bytes):
+        self.part_status = bytes[0:1].decode()
+        self.part_fit = bytes[1:2].decode()
+        self.part_start = int.from_bytes(bytes[2:6], byteorder='big')
+        self.part_s = int.from_bytes(bytes[6:10], byteorder='big')
+        self.part_next = int.from_bytes(bytes[10:14], byteorder='big', signed=True)
+        self.part_name = bytes[14:30].decode().replace('\x00', '')

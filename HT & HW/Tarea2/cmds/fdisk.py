@@ -1,5 +1,5 @@
 import os
-from cmds.structs.MBR import MBR, Partition
+from cmds.structs.MBR import MBR, Partition, EBR
 
 
 def execute(consoleLine):
@@ -111,6 +111,9 @@ def newPartition(size, path, name, type, fit):
             newpartition = Partition(status='1', type=type, fit=fit, start=start, size=size, name=name)
             mbr.setPartition(index, newpartition)
             mbr.updateDisk(path)
+            # Crear EBR si es extendida
+            if type == 'E':
+                mbr.addFirstEBR(path)
             return 'Partición creada exitosamente.'
 
         # Lógicas

@@ -92,13 +92,13 @@ class MBR:  # Size = 136 bytes
         partition = self.getExtendedPartition()
         with open(path, 'r+b') as file:
             file.seek(partition.part_start)
-            ebr = EBR()
-            ebr.decode(file.read(30))
-            while ebr.part_next != -1:
-                partitions.append(ebr)
-                file.seek(ebr.part_next)
+            while True:
+                ebr = EBR()
                 ebr.decode(file.read(30))
-            partitions.append(ebr)
+                partitions.append(ebr)
+                if ebr.part_next == -1:
+                    break
+                file.seek(ebr.part_next)
             file.close()
         return partitions
     # FDISK FUNCTIONS
@@ -160,12 +160,17 @@ class MBR:  # Size = 136 bytes
                 return True
         return False
 
-    def hasPartitionNamed(self, name):
-        for partition in self.getPartitions():
+    def hasPartitionNamed(self, name, path):
+        partitions = self.getPartitions()
+        if self.hasExtendedPartition():
+            partitions += self.getLogicPartitions(path)
+        for partition in partitions:
             if partition.part_name == name:
                 return True
-        # ! Añadir validación de particiones lógicas
         return False
+
+    def hasFreeLogicalPartition(self, path):
+        return len(self.getLogicPartitions(path)) < 6
 
     # ==================== EXTENDED PARTITION ====================
 
@@ -185,6 +190,49 @@ class MBR:  # Size = 136 bytes
                 file.close()
         except Exception as e:
             print(e)
+
+    def addLogicFirstFit(self, path, size, name, fit):
+        extended = self.getExtendedPartition()
+        ebrs = self.getLogicPartitions(path)
+        right = extended.part_start + extended.part_s
+        left = extended.part_start
+        for i in range(len(ebrs)):
+            # Primer EBR
+            if i == 0:
+                if ebrs[i].part_status == 'N':
+                    if size < (right - (left + 30)):
+                        # Modificar EBR
+                        ebrs[i].part_status = 'E'
+                        ebrs[i].part_fit = fit
+                        ebrs[i].part_s = size
+                        ebrs[i].part_name = name
+                        ebrs[i].part_start = left
+                        self.updateEBRS(path, ebrs)
+                        return 'Partición creada exitosamente.'
+                    else:
+                        return 'Error: No hay espacio suficiente para crear la partición.'
+                left = ebrs[i].part_start + ebrs[i].part_s
+            if ebrs[i].part_next != -1:
+                continue
+            else:
+                if size < (right - (left + 30)):
+                    #Crear EBR
+                    ebr = EBR(status='E', fit=fit, start=left, size=size, next=-1, name=name)
+                    ebrs[i].part_next = ebr.part_start
+                    ebrs.append(ebr)
+                    self.updateEBRS(path, ebrs)
+                    return 'Partición creada exitosamente.'
+                else:
+                    return 'Error: No hay espacio suficiente para crear la partición.'
+
+    def updateEBRS(self, path, ebrs):
+        with open(path, 'r+b') as file:
+            for i in range(len(ebrs)):
+                file.seek(ebrs[i].part_start)
+                print('Posición: ' + str(ebrs[i].part_start))
+                file.write(ebrs[i].encode())
+            file.close()
+
 
 
 

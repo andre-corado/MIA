@@ -92,7 +92,7 @@ def newPartition(size, path, name, type, fit):
             file.close()
 
         # Validar que no exista una partición con el mismo nombre
-        if mbr.hasPartitionNamed(name):
+        if mbr.hasPartitionNamed(name, path):
             return 'Error: Ya existe una partición con ese nombre.'
         
         # Primarias y extendidas
@@ -117,13 +117,17 @@ def newPartition(size, path, name, type, fit):
             return 'Partición creada exitosamente.'
 
         # Lógicas
-        if type == 'L':
+        elif type == 'L':
+            print('Creando partición lógica...')
             if not mbr.hasExtendedPartition():
                 return 'Error: No existe una partición extendida aún para una partición lógica.'
+            if not mbr.hasFreeLogicalPartition(path): # Solo pueden haber X particiones lógicas
+                return 'Error: No se puede crear la partición. Límite de particiones lógicas alcanzado.'
+            mbr.addLogicFirstFit(path, size, name, fit)
+            return 'Partición creada exitosamente.'
 
 
-
-    except:
+    except Exception as e   :
         return 'Error: Disco no encontrado.'
     
     

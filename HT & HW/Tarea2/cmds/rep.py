@@ -1,9 +1,9 @@
 import os.path
 import struct
-# Utilizar Graphviz
 from graphviz import Digraph
 
 from cmds.structs.MBR import MBR
+from cmds.mount import getMountedPartition
 
 
 def execute(consoleLine):
@@ -22,10 +22,14 @@ def execute(consoleLine):
             nameFound = True
         if consoleLine[i].startswith('-id='):
             id = consoleLine[i][4:]
-            if not id.endswith('.dsk') and not id.endswith('.dsk\"'):
-                return 'Error: Id debe ser un archivo .dsk'
             if len(id) < 1:
                 return 'Error: Id no puede ser vacío.'
+            p = getMountedPartition(id)
+            if p == None:
+                return 'Error: No existe una partición montada con ese id.'
+            id = p.path
+            if not id.endswith('.dsk') and not id.endswith('.dsk\"'):
+                return 'Error: No se pudo obtener el dsk del id.'
             idFound = True
         if consoleLine[i].startswith('-ruta='):
             ruta = consoleLine[i][6:]
@@ -220,3 +224,4 @@ def getDirFromPath(path):
     for i in range(len(words) - 1):
         dir += words[i] + '/'
     return dir
+

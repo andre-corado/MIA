@@ -46,7 +46,7 @@ def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
 
 
 def analizar_Comando(consoleLine):
-    print(consoleLine)
+    print(consoleLine) # PARA VER COMO LLEGAN LAS PALABRAS
     # ------------- COMANDO EXECUTE -------------
     if consoleLine[0] == "execute":
         # Si contiene -path= y tiene un path válido
@@ -261,6 +261,20 @@ def analizar_Comando(consoleLine):
     # ------------- COMANDO EXIT -------------
     elif consoleLine[0] == "exit":
         return "Comando exit reconocido.\n"
+
+    # ------------ COMANDO SHOW PARTS ------------
+    elif consoleLine[0] == "show":
+        if 'parts' in consoleLine:
+            if mountedPartitions == {}:
+                return "No hay particiones montadas.\n"
+            # Imprimir diccionario de particiones montadas
+            print(" ________ Particiones montadas: ________")
+            for key in mountedPartitions:
+                print("id: " + key)
+                print('______________________________')
+            print()
+            return "Comando show parts reconocido.\n"
+        return "Comando no reconocido\n"
 
     # ------------- COMANDO NO RECONOCIDO -------------
     return "Comando no reconocido\n"

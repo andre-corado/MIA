@@ -50,7 +50,7 @@ def execute(consoleLine):
     # Montar partición
     if isMounted(idPartition):
         return 'Error: La partición ya está montada.'
-    mountPartition(path, name, idPartition, type)
+    return mountPartition(path, name, idPartition, type)
 
 
 def isMounted(idPartition):
@@ -60,9 +60,13 @@ def isMounted(idPartition):
     if idPartition in mountedPartitions:
         return True
 
+def getMountedPartition(idPartition):
+    from analizador import mountedPartitions
+    return mountedPartitions[idPartition]
 
 def mountPartition(path, name, id, type):
     # Montar partición
     from analizador import mountedPartitions, mountedPartition
     part = mountedPartition(path, name, type)
     mountedPartitions[id] = part
+    return 'Partición montada.'

@@ -218,7 +218,7 @@ class MBR:  # Size = 136 bytes
                 if ebrs[i].part_status == 'N':
                     if size < (right - (left + 30)):
                         # Modificar EBR
-                        ebrs[i].part_status = 'E'
+                        ebrs[i].part_status = 'N'
                         ebrs[i].part_fit = fit
                         ebrs[i].part_s = size
                         ebrs[i].part_name = name
@@ -233,7 +233,7 @@ class MBR:  # Size = 136 bytes
             else:
                 if size < (right - (left + 30)):
                     #Crear EBR
-                    ebr = EBR(status='E', fit=fit, start=left, size=size, next=-1, name=name)
+                    ebr = EBR(status='N', fit=fit, start=left, size=size, next=-1, name=name)
                     ebrs[i].part_next = ebr.part_start
                     ebrs.append(ebr)
                     self.updateEBRS(path, ebrs)

@@ -1,5 +1,7 @@
-from cmds import mkdisk, fdisk, rmdisk, rep  # Importar módulo de comandos
+from cmds import mkdisk, fdisk, rmdisk, rep, mount  # Importar módulo de comandos
 import os
+# Diccionario de particiones montadas   id -> MountedPartition
+mountedPartitions = {}
 
 
 def split_Command(inputTxt):  # ANALIZADOR LÉXICO EN TEORÍA
@@ -100,15 +102,28 @@ def analizar_Comando(consoleLine):
 
     # ------------- COMANDO FDISK -------------
     elif consoleLine[0] == "fdisk":
-        if ">path=" not in consoleLine or ">name=" not in consoleLine:
+        pathFound, nameFound = False, False
+        for i in range(1, len(consoleLine)):
+            if consoleLine[i].startswith("-path="):
+                pathFound = True
+            elif consoleLine[i].startswith("-name="):
+                nameFound = True
+        if not pathFound or not nameFound:
             return "Error: Faltan parámetros obligatorios"
-        # return c.fdisk.execute(consoleLine)
+        return fdisk.execute(consoleLine)
 
     # ------------- COMANDO MOUNT -------------
     elif consoleLine[0] == "mount":
-        if ">path=" not in consoleLine or ">name=" not in consoleLine:
+        pathFound, nameFound = False, False
+        for i in range(1, len(consoleLine)):
+            if consoleLine[i].startswith("-path="):
+                pathFound = True
+            elif consoleLine[i].startswith("-name="):
+                nameFound = True
+        if not pathFound or not nameFound:
             return "Error: Faltan parámetros obligatorios"
-        # return c.mount.execute(consoleLine)
+        return mount.execute(consoleLine)
+
 
     # ------------- COMANDO UNMOUNT -------------
     elif consoleLine[0] == "unmount":
@@ -249,3 +264,10 @@ def analizar_Comando(consoleLine):
 
     # ------------- COMANDO NO RECONOCIDO -------------
     return "Comando no reconocido\n"
+
+
+class mountedPartition:
+    def __init__(self, path, name, type):
+        self.path = path
+        self.name = name
+        self.type = type

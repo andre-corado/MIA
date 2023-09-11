@@ -87,6 +87,22 @@ class MBR:  # Size = 136 bytes
     def getPartitions(self):
         return [self.mbr_partition_1, self.mbr_partition_2, self.mbr_partition_3, self.mbr_partition_4]
 
+    def getPartitionNamed(self, name, path):
+        partitions = self.getPartitions()
+        for partition in partitions:
+            if partition.part_name == name:
+                if partition.part_type == 'E':
+                    return None, None
+                return partition, 'P'
+        if self.hasExtendedPartition():
+            partitions = self.getLogicPartitions(path)
+            for partition in partitions:
+                if partition.part_name == name:
+                    return partition, 'L'
+        return None
+
+
+
     def getLogicPartitions(self, path):
         partitions = []
         partition = self.getExtendedPartition()

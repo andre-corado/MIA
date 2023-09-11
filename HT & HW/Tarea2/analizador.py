@@ -64,6 +64,9 @@ def analizar_Comando(consoleLine):
             lines = text.split("\n")
             # Analizar cada línea
             for line in lines:
+                if line.startsWith("#"):
+                    print('\n############################\n'+line+'\n############################\n')
+                    continue
                 print(split_Command(line))
         return "Comando execute ejecutado."
 

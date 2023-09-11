@@ -22,8 +22,8 @@ def execute(consoleLine):
             nameFound = True
         if consoleLine[i].startswith('-id='):
             id = consoleLine[i][4:]
-            if len(id) < 1:
-                return 'Error: Id no puede ser vacío.'
+            if len(id) < 4:
+                return 'Error: Id no válido, muy breve.'
             p = getMountedPartition(id)
             if p == None:
                 return 'Error: No existe una partición montada con ese id.'

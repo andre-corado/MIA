@@ -92,7 +92,7 @@ class MBR:  # Size = 136 bytes
         for partition in partitions:
             if partition.part_name == name:
                 if partition.part_type == 'E':
-                    return None, None
+                    return None, -1
                 return partition, 'P'
         if self.hasExtendedPartition():
             partitions = self.getLogicPartitions(path)

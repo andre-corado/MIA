@@ -1,4 +1,4 @@
-from cmds import mkdisk, fdisk, rmdisk, rep, mount  # Importar módulo de comandos
+from cmds import mkdisk, fdisk, rmdisk, rep, mount, mkfs  # Importar módulo de comandos
 import os
 # Diccionario de particiones montadas   id -> MountedPartition
 mountedPartitions = {}
@@ -140,9 +140,10 @@ def analizar_Comando(consoleLine):
 
     # ------------- COMANDO MKFS -------------
     elif consoleLine[0] == "mkfs":
-        if "-id=" not in consoleLine:
-            return "Error: Faltan parámetros obligatorios"
-        # return c.mkfs.execute(consoleLine)
+        for i in range(len(consoleLine)):
+            if consoleLine[i].startswith("-id="):
+                return mkfs.execute(consoleLine)
+        return "Eror: Faltan parámetros obligatorios"
     # ===========================================================
     # =========== ADMINISTRACIÓN DE USUARIOS Y GRUPOS ===========
     # ===========================================================

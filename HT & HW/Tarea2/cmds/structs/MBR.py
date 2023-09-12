@@ -386,3 +386,13 @@ class EBR:
         self.part_s = int.from_bytes(bytes[6:10], byteorder='big')
         self.part_next = int.from_bytes(bytes[10:14], byteorder='big', signed=True)
         self.part_name = bytes[14:30].decode().replace('\x00', '')
+
+def readMBR(path):
+    try:
+        with open(path, 'rb') as file:
+            mbr = MBR()
+            mbr.decode(file.read(136))
+            file.close()
+            return mbr
+    except:
+        return None

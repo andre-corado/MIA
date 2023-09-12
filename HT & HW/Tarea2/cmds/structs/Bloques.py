@@ -1,4 +1,4 @@
-class Content:
+class Content: # 16 bytes
     def __init__(self):
         self.b_name = ""  # Char[12]
         self.b_inodo = 0  # int4 unsigned
@@ -14,7 +14,7 @@ class Content:
         self.b_inodo = int.from_bytes(bytes[12:16], byteorder='big', signed=False)
 
 
-class DirBlock:
+class DirBlock: # 64 bytes
     def __init__(self):
         # Content[4]
         self.b_Content = [Content(), Content(), Content(), Content()]
@@ -30,7 +30,7 @@ class DirBlock:
             self.b_Content[i].decode(bytes[i * 16:(i + 1) * 16])
 
 
-class FileBlock:
+class FileBlock: # 64 bytes
     def __init__(self):
         self.b_Content = ""  # char[64]
 
@@ -43,7 +43,7 @@ class FileBlock:
         self.b_Content = bytes.decode().replace('\x00', '')
 
 
-class PointerBlock:
+class PointerBlock: # 64 bytes
     def __init__(self):
         # int4[16]
         self.b_pointers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

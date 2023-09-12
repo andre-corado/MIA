@@ -89,7 +89,7 @@ class Inode:
         bytes += formatStr(self.i_ctime, 19).encode()
         bytes += formatStr(self.i_mtime, 19).encode()
         for pointer in self.i_block:
-            bytes += pointer.to_bytes(4, byteorder='big', signed=False)
+            bytes += pointer.to_bytes(4, byteorder='big', signed=True)
         bytes += self.i_type.encode()
         bytes += self.i_perm.to_bytes(3, byteorder='big', signed=False)
         return bytes
@@ -102,7 +102,7 @@ class Inode:
         self.i_ctime = bytes[26:45].decode().replace('\x00', '')
         self.i_mtime = bytes[45:64].decode().replace('\x00', '')
         for i in range(15):
-            self.i_block[i] = int.from_bytes(bytes[64 + i * 4:64 + (i + 1) * 4], byteorder='big', signed=False)
+            self.i_block[i] = int.from_bytes(bytes[64 + i * 4:64 + (i + 1) * 4], byteorder='big', signed=True)
         self.i_type = bytes[124:125].decode().replace('\x00', '')
         self.i_perm = int.from_bytes(bytes[125:128], byteorder='big', signed=False)
 

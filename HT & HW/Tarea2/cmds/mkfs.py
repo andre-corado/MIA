@@ -5,7 +5,6 @@ BLOCK = 64
 SUPERBLOCK = 89
 INODE = 128
 
-T=307180,\:S=89,\:I=128,\:B=64
 
 def execute(consoleLine):
     id = ''
@@ -55,6 +54,48 @@ def format2FS(id):
     superblock.s_filesystem_type = 0
     superblock.s_inodes_count = n
     superblock.s_blocks_count = n * 3
+    superblock.s_free_blocks_count = n * 3
+    superblock.s_free_inodes_count = n
+    superblock.s_inode_s = INODE
+    superblock.s_block_s = BLOCK
+    if mountedPart.type == 'P':
+        superblock.s_bm_inode_start = partition.part_start + SUPERBLOCK
+    elif mountedPart.type == 'L':
+        superblock.s_bm_inode_start = partition.part_start + EBR + SUPERBLOCK
+    superblock.s_bm_block_start = superblock.s_bm_inode_start + n
+    superblock.s_inode_start = superblock.s_bm_block_start + 3 * n
+    superblock.s_block_start = superblock.s_inode_start + n * INODE
+    superblock.s_first_ino = superblock.s_inode_start
+    superblock.s_first_blo = superblock.s_block_start
+
+    try:
+        with open(mountedPart.path, 'rb+') as file:
+            if mountedPart.type == 'P':
+                file.seek(partition.part_start)
+            elif mountedPart.type == 'L':
+                file.seek(partition.part_start + EBR)
+            file.write(superblock.encode())
+            # Crear Bitmap de Inodos
+            file.seek(superblock.s_bm_inode_start)
+            file.write("0".encode() * n)
+            # Crear Bitmap de Bloques
+            file.seek(superblock.s_bm_block_start)
+            file.write("0".encode() * (3 * n))
+            # Crear Inodos
+            from cmds.structs.Superbloque import Inode
+            inode = Inode()
+            for i in range(n):
+                file.seek(superblock.s_inode_start + i * INODE)
+                file.write(inode.encode())
+
+    except Exception as e:
+        print(e)
+        return 'Error: No se pudo escribir el Superbloque.'
+
+
+
+
+
 
 
 

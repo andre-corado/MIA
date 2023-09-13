@@ -3,6 +3,7 @@ import random
 import datetime
 import graphviz as gv
 
+from cmds.structs.Superbloque import Superbloque
 
 class MBR:  # Size = 136 bytes
     def __init__(self, fit='F', size=0):
@@ -92,7 +93,7 @@ class MBR:  # Size = 136 bytes
         for partition in partitions:
             if partition.part_name == name:
                 if partition.part_type == 'E':
-                    return None, -1
+                    return None, 'E'
                 return partition, 'P'
         if self.hasExtendedPartition():
             partitions = self.getLogicPartitions(path)
@@ -100,8 +101,6 @@ class MBR:  # Size = 136 bytes
                 if partition.part_name == name:
                     return partition, 'L'
         return None
-
-
 
     def getLogicPartitions(self, path):
         partitions = []
@@ -396,3 +395,23 @@ def readMBR(path):
             return mbr
     except:
         return None
+
+def getSuperblockByMountedPartition(mountedPart):
+    mbr = readMBR(mountedPart.path)
+    part, type = mbr.getPartitionNamed(mountedPart.name, mountedPart.path)
+    if type == 'E':
+        return 'Error: No se puede generar gráfico en partición extendida.'
+    try:
+        with open(mountedPart.path, 'rb+') as file:
+            if type == 'P':
+                file.seek(part.part_start)
+            elif type == 'L':
+                file.seek(part.part_start + EBR)
+            from cmds.mkfs import SUPERBLOCK
+            bytes = file.read(SUPERBLOCK)
+            superbloque = Superbloque()
+            superbloque.decode(bytes)
+            file.close()
+        return superbloque
+    except:
+        return 'Error: No se pudo leer el Superbloque.'

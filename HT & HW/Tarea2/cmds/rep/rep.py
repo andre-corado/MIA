@@ -1,10 +1,9 @@
 import os.path
-import struct
 from graphviz import Digraph
 
 from cmds.structs.MBR import MBR
 from cmds.mount import getMountedPartition
-
+from cmds.rep.bitmaps import makebm_block, makebm_inode
 
 def execute(consoleLine):
     name, path, id, ruta = '', '', '', ''
@@ -27,9 +26,6 @@ def execute(consoleLine):
             p = getMountedPartition(id)
             if p == None:
                 return 'Error: No existe una partición montada con ese id.'
-            id = p.path
-            if not id.endswith('.dsk') and not id.endswith('.dsk\"'):
-                return 'Error: No se pudo obtener el dsk del id.'
             idFound = True
         if consoleLine[i].startswith('-ruta='):
             ruta = consoleLine[i][6:]
@@ -37,14 +33,24 @@ def execute(consoleLine):
                 return 'Error: Ruta no puede ser vacío.'
             rutaFound = True
 
+    if p == None:
+        return 'Error: No existe una partición montada con ese id.'
+
     if name == 'MBR':
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
-        return makeMBRTable(path, id)
+        return makeMBRTable(path, p.path)
     if name == 'DISK':
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
-        return makeDiskTable(path, id)
+        return makeDiskTable(path, p.path)
+    if name == 'BM_INODE':
+        if not pathFound or not idFound:
+            return 'Error: Faltan parámetros obligatorios.'
+        if not path.endswith('.txt'):
+            return 'Error: El archivo debe ser .txt'
+        return makebm_inode(path, p)
+
 
 
 def makeMBRTable(tablePath, diskPath):

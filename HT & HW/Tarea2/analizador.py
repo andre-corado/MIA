@@ -1,4 +1,5 @@
-from cmds import mkdisk, fdisk, rmdisk, rep, mount, mkfs  # Importar módulo de comandos
+from cmds import mkdisk, fdisk, rmdisk, mount, mkfs  # Importar módulo de comandos
+from cmds.rep import rep
 import os
 # Diccionario de particiones montadas   id -> MountedPartition
 mountedPartitions = {}

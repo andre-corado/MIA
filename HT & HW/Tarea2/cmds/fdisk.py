@@ -108,7 +108,7 @@ def newPartition(size, path, name, type, fit):
                 return ('Error: No hay espacio suficiente para crear la partición o ya se encuentran 4 particiones '
                         'creadas.')
             start = mbr.getStartForFF(index)
-            newpartition = Partition(status='1', type=type, fit=fit, start=start, size=size, name=name)
+            newpartition = Partition(status='A', type=type, fit=fit, start=start, size=size, name=name)
             mbr.setPartition(index, newpartition)
             mbr.updateDisk(path)
             # Crear EBR si es extendida

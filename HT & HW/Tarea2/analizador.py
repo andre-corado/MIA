@@ -64,7 +64,7 @@ def analizar_Comando(consoleLine):
             lines = text.split("\n")
             # Analizar cada línea
             for line in lines:
-                if line.startsWith("#"):
+                if line.startswith("#"):
                     print('\n############################\n'+line+'\n############################\n')
                     continue
                 print(split_Command(line))
@@ -284,6 +284,8 @@ def analizar_Comando(consoleLine):
         return "Comando no reconocido"
 
     # ------------- COMANDO NO RECONOCIDO -------------
+    elif consoleLine[0] == '':
+        return ""
     return "Comando no reconocido"
 
 

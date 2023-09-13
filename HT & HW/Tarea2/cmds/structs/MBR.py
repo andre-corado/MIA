@@ -218,7 +218,7 @@ class MBR:  # Size = 136 bytes
                 if ebrs[i].part_status == 'N':
                     if size < (right - (left + 30)):
                         # Modificar EBR
-                        ebrs[i].part_status = 'N'
+                        ebrs[i].part_status = 'A'
                         ebrs[i].part_fit = fit
                         ebrs[i].part_s = size
                         ebrs[i].part_name = name

@@ -43,7 +43,7 @@ def format2FS(id):
         return 'Error: No se pudo leer el disco.'
     # Obtener partición
     partition, type = mbr.getPartitionNamed(mountedPart.name, mountedPart.path)
-    if partition.part_status != 'N':
+    if partition.part_status == 'F':
         return 'Error: La partición ya fue formateada.'
     # Cálculo de n cantidad de bloques
     print("Calculando cantidad de bloques e inodos...")

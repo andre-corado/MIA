@@ -40,16 +40,23 @@ def execute(consoleLine):
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
         return makeMBRTable(path, p.path)
-    if name == 'DISK':
+    elif name == 'DISK':
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
         return makeDiskTable(path, p.path)
-    if name == 'BM_INODE':
+    elif name == 'BM_INODE':
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
         if not path.endswith('.txt'):
             return 'Error: El archivo debe ser .txt'
         return makebm_inode(path, p)
+    elif name == 'BM_BLOCK':
+        if not pathFound or not idFound:
+            return 'Error: Faltan parámetros obligatorios.'
+        if not path.endswith('.txt'):
+            return 'Error: El archivo debe ser .txt'
+        return makebm_block(path, p)
+
 
 
 
@@ -75,7 +82,7 @@ def makeMBRTable(tablePath, diskPath):
         dot.render(tablePath, view=True)
 
         # Borrar archivos temporales
-        #os.remove(tablePath)
+        os.remove(tablePath)
     else:
         return 'Error: Formato de reporte no válido.'
     return 'Tabla MBR creada exitosamente.'

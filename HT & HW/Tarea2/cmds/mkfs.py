@@ -81,10 +81,10 @@ def format2FS(id):
             file.write(superblock.encode())
             # Crear Bitmap de Inodos
             file.seek(superblock.s_bm_inode_start)
-            file.write("i".encode() * n)
+            file.write("0".encode() * n)
             # Crear Bitmap de Bloques
             file.seek(superblock.s_bm_block_start)
-            file.write("B".encode() * (3 * n))
+            file.write("0".encode() * (3 * n))
             # Crear Inodos
             from cmds.structs.Superbloque import Inode
             inode = Inode()

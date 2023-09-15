@@ -3,6 +3,7 @@ import random
 import datetime
 import graphviz as gv
 
+from cmds.structs.Superbloque import Superbloque
 
 class MBR:  # Size = 136 bytes
     def __init__(self, fit='F', size=0):
@@ -92,7 +93,7 @@ class MBR:  # Size = 136 bytes
         for partition in partitions:
             if partition.part_name == name:
                 if partition.part_type == 'E':
-                    return None, None
+                    return None, 'E'
                 return partition, 'P'
         if self.hasExtendedPartition():
             partitions = self.getLogicPartitions(path)
@@ -100,8 +101,6 @@ class MBR:  # Size = 136 bytes
                 if partition.part_name == name:
                     return partition, 'L'
         return None
-
-
 
     def getLogicPartitions(self, path):
         partitions = []
@@ -218,7 +217,7 @@ class MBR:  # Size = 136 bytes
                 if ebrs[i].part_status == 'N':
                     if size < (right - (left + 30)):
                         # Modificar EBR
-                        ebrs[i].part_status = 'E'
+                        ebrs[i].part_status = 'A'
                         ebrs[i].part_fit = fit
                         ebrs[i].part_s = size
                         ebrs[i].part_name = name
@@ -233,7 +232,7 @@ class MBR:  # Size = 136 bytes
             else:
                 if size < (right - (left + 30)):
                     #Crear EBR
-                    ebr = EBR(status='E', fit=fit, start=left, size=size, next=-1, name=name)
+                    ebr = EBR(status='N', fit=fit, start=left, size=size, next=-1, name=name)
                     ebrs[i].part_next = ebr.part_start
                     ebrs.append(ebr)
                     self.updateEBRS(path, ebrs)
@@ -386,3 +385,33 @@ class EBR:
         self.part_s = int.from_bytes(bytes[6:10], byteorder='big')
         self.part_next = int.from_bytes(bytes[10:14], byteorder='big', signed=True)
         self.part_name = bytes[14:30].decode().replace('\x00', '')
+
+def readMBR(path):
+    try:
+        with open(path, 'rb') as file:
+            mbr = MBR()
+            mbr.decode(file.read(136))
+            file.close()
+            return mbr
+    except:
+        return None
+
+def getSuperblockByMountedPartition(mountedPart):
+    mbr = readMBR(mountedPart.path)
+    part, type = mbr.getPartitionNamed(mountedPart.name, mountedPart.path)
+    if type == 'E':
+        return 'Error: No se puede generar gráfico en partición extendida.'
+    try:
+        with open(mountedPart.path, 'rb+') as file:
+            if type == 'P':
+                file.seek(part.part_start)
+            elif type == 'L':
+                file.seek(part.part_start + EBR)
+            from cmds.mkfs import SUPERBLOCK
+            bytes = file.read(SUPERBLOCK)
+            superbloque = Superbloque()
+            superbloque.decode(bytes)
+            file.close()
+        return superbloque
+    except:
+        return 'Error: No se pudo leer el Superbloque.'

@@ -1,10 +1,9 @@
 import os.path
-import struct
-# Utilizar Graphviz
 from graphviz import Digraph
 
 from cmds.structs.MBR import MBR
-
+from cmds.mount import getMountedPartition
+from cmds.rep.bitmaps import makebm_block, makebm_inode
 
 def execute(consoleLine):
     name, path, id, ruta = '', '', '', ''
@@ -22,10 +21,11 @@ def execute(consoleLine):
             nameFound = True
         if consoleLine[i].startswith('-id='):
             id = consoleLine[i][4:]
-            if not id.endswith('.dsk') and not id.endswith('.dsk\"'):
-                return 'Error: Id debe ser un archivo .dsk'
-            if len(id) < 1:
-                return 'Error: Id no puede ser vacío.'
+            if len(id) < 4:
+                return 'Error: Id no válido, muy breve.'
+            p = getMountedPartition(id)
+            if p == None:
+                return 'Error: No existe una partición montada con ese id.'
             idFound = True
         if consoleLine[i].startswith('-ruta='):
             ruta = consoleLine[i][6:]
@@ -33,14 +33,31 @@ def execute(consoleLine):
                 return 'Error: Ruta no puede ser vacío.'
             rutaFound = True
 
+    if p == None:
+        return 'Error: No existe una partición montada con ese id.'
+
     if name == 'MBR':
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
-        return makeMBRTable(path, id)
-    if name == 'DISK':
+        return makeMBRTable(path, p.path)
+    elif name == 'DISK':
         if not pathFound or not idFound:
             return 'Error: Faltan parámetros obligatorios.'
-        return makeDiskTable(path, id)
+        return makeDiskTable(path, p.path)
+    elif name == 'BM_INODE':
+        if not pathFound or not idFound:
+            return 'Error: Faltan parámetros obligatorios.'
+        if not path.endswith('.txt'):
+            return 'Error: El archivo debe ser .txt'
+        return makebm_inode(path, p)
+    elif name == 'BM_BLOCK':
+        if not pathFound or not idFound:
+            return 'Error: Faltan parámetros obligatorios.'
+        if not path.endswith('.txt'):
+            return 'Error: El archivo debe ser .txt'
+        return makebm_block(path, p)
+
+
 
 
 def makeMBRTable(tablePath, diskPath):
@@ -65,7 +82,7 @@ def makeMBRTable(tablePath, diskPath):
         dot.render(tablePath, view=True)
 
         # Borrar archivos temporales
-        #os.remove(tablePath)
+        os.remove(tablePath)
     else:
         return 'Error: Formato de reporte no válido.'
     return 'Tabla MBR creada exitosamente.'
@@ -220,3 +237,4 @@ def getDirFromPath(path):
     for i in range(len(words) - 1):
         dir += words[i] + '/'
     return dir
+

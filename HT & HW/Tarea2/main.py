@@ -6,4 +6,7 @@ if __name__ == '__main__':
     while True:
         print("> ", end="")
         console = input()
-        print(split_Command(console))
+        try:
+            print(split_Command(console)+"\n")
+        except:
+            print('Error: Falta parámetro obligatorio.')

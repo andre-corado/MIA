@@ -1,0 +1,17 @@
+digraph G {
+
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+node [shape=plaintext];
+
+	tabla [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+		<tr rowspan="2">
+			<td rowspan="2"><b>MBR</b></td>
+			<td rowspan="2"><b>Primaria</b>  <b>33.33%</b></td>
+			<td rowspan="2"><b>Primaria</b>  <b>33.33%</b></td>
+			<td rowspan="2"><b>Primaria</b>  <b>26.67%</b></td>
+			<td rowspan="2"><b>nil</b>  <b>6.67%</b></td>
+		</tr>
+	</table>>];
+
+}

@@ -1,0 +1,54 @@
+digraph G{
+	rankdir=TB;
+	node [shape=plaintext];
+	tabla [label=<
+		<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD colspan="2">REPORTE DE MBR</TD></TR>
+			<TR><TD>Tamano</TD><TD>105906176</TD></TR>
+			<TR><TD>Fecha_creacion</TD><TD>2023-10-28 23:37:46</TD></TR>
+			<TR><TD>Disk_signature</TD><TD>2046</TD></TR>
+			<TR><TD colspan="2">Particion</TD></TR>
+			<TR><TD>Status</TD><TD>1</TD></TR>
+			<TR><TD>Type</TD><TD>E</TD></TR>
+			<TR><TD>Fit</TD><TD>WF</TD></TR>
+			<TR><TD>Start</TD><TD>#AE9EFA</TD></TR>
+			<TR><TD>Size</TD><TD>26214400</TD></TR>
+			<TR><TD>Name</TD><TD>Part1</TD></TR>
+			<TR><TD colspan="2">Particion Logica</TD></TR>
+			<TR><TD>status</TD><TD>1</TD></TR>
+			<TR><TD>next</TD><TD>1048737</TD></TR>
+			<TR><TD>fit</TD><TD>WF</TD></TR>
+			<TR><TD>start</TD><TD>130</TD></TR>
+			<TR><TD>size</TD><TD>1048576</TD></TR>
+			<TR><TD>name</TD><TD>Part5</TD></TR>
+			<TR><TD colspan="2">Particion Logica</TD></TR>
+			<TR><TD>status</TD><TD>1</TD></TR>
+			<TR><TD>next</TD><TD>-1</TD></TR>
+			<TR><TD>fit</TD><TD>WF</TD></TR>
+			<TR><TD>start</TD><TD>1048737</TD></TR>
+			<TR><TD>size</TD><TD>1048576</TD></TR>
+			<TR><TD>name</TD><TD>Part6</TD></TR>
+			<TR><TD colspan="2">Particion</TD></TR>
+			<TR><TD>Status</TD><TD>1</TD></TR>
+			<TR><TD>Type</TD><TD>P</TD></TR>
+			<TR><TD>Fit</TD><TD>WF</TD></TR>
+			<TR><TD>Start</TD><TD>#AE9EFA</TD></TR>
+			<TR><TD>Size</TD><TD>26214400</TD></TR>
+			<TR><TD>Name</TD><TD>Part2</TD></TR>
+			<TR><TD colspan="2">Particion</TD></TR>
+			<TR><TD>Status</TD><TD>1</TD></TR>
+			<TR><TD>Type</TD><TD>P</TD></TR>
+			<TR><TD>Fit</TD><TD>WF</TD></TR>
+			<TR><TD>Start</TD><TD>#AE9EFA</TD></TR>
+			<TR><TD>Size</TD><TD>26214400</TD></TR>
+			<TR><TD>Name</TD><TD>Part3</TD></TR>
+			<TR><TD colspan="2">Particion</TD></TR>
+			<TR><TD>Status</TD><TD>1</TD></TR>
+			<TR><TD>Type</TD><TD>P</TD></TR>
+			<TR><TD>Fit</TD><TD>WF</TD></TR>
+			<TR><TD>Start</TD><TD>#AE9EFA</TD></TR>
+			<TR><TD>Size</TD><TD>26214400</TD></TR>
+			<TR><TD>Name</TD><TD>Part4</TD></TR>
+		</TABLE>
+	>];
+}

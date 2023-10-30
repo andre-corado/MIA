@@ -1,0 +1,907 @@
+digraph G{ graph [pad="0.5", nodesep="0.5", ranksep="1"];node [shape=plaintext] rankdir=LR;
+			Inodo0 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 0</td></tr>
+				<tr><td>i_uid</td><td>0</td></tr>
+				<tr><td>i_gid</td><td>0</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:52</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:52</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:52</td></tr>
+				<tr><td>APT1</td><td port="1">0</td></tr>
+				<tr><td>APT2</td><td port="2">5</td></tr>
+				<tr><td>APT3</td><td port="3">10</td></tr>
+				<tr><td>APT4</td><td port="4">15</td></tr>
+				<tr><td>APT5</td><td port="5">20</td></tr>
+				<tr><td>APT6</td><td port="6">25</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque0[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 0</td></tr><tr><td>.</td><td port="1">0</td></tr><tr><td>..</td><td port="2">0</td></tr><tr><td>users.txt</td><td port="3">1</td></tr><tr><td>bin</td><td port="4">2</td></tr></table>>];
+			Inodo1 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 1</td></tr>
+				<tr><td>i_uid</td><td>1</td></tr>
+				<tr><td>i_gid</td><td>1</td></tr>
+				<tr><td>i_s</td><td>64</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:52</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:52</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:52</td></tr>
+				<tr><td>APT1</td><td port="1">1</td></tr>
+				<tr><td>APT2</td><td port="2">2</td></tr>
+				<tr><td>APT3</td><td port="3">3</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>1</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque1[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque Archivo 1</td></tr>				<tr><td>1,G,root
+1,U,root,root,123
+2,G,usuarios
+3,G,adm
+0,G,mail
+5,G,new</td></tr></table>>];Inodo1:1 -> Bloque1:0; Bloque2[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque Archivo 2</td></tr>				<tr><td>s
+6,G,sys
+2,U,root,usuario1,password
+3,U,usuarios,user1,abc
+0,U,</td></tr></table>>];Inodo1:2 -> Bloque2:0; Bloque3[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque Archivo 3</td></tr>				<tr><td>usuarios,user2,abc
+</td></tr></table>>];Inodo1:3 -> Bloque3:0; Bloque0:3 -> Inodo1:0; 
+			Inodo2 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 2</td></tr>
+				<tr><td>i_uid</td><td>2</td></tr>
+				<tr><td>i_gid</td><td>2</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:58</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:58</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:58</td></tr>
+				<tr><td>APT1</td><td port="1">4</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque4[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 4</td></tr><tr><td>.</td><td port="1">4</td></tr><tr><td>..</td><td port="2">2</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo2:1 -> Bloque4:0; Bloque0:4 -> Inodo2:0; Inodo0:1 -> Bloque0:0; Bloque5[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 5</td></tr><tr><td>boot</td><td port="1">3</td></tr><tr><td>cdrom</td><td port="2">4</td></tr><tr><td>dev</td><td port="3">5</td></tr><tr><td>etc</td><td port="4">6</td></tr></table>>];
+			Inodo3 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 3</td></tr>
+				<tr><td>i_uid</td><td>3</td></tr>
+				<tr><td>i_gid</td><td>3</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:58</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:58</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:58</td></tr>
+				<tr><td>APT1</td><td port="1">6</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque6[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 6</td></tr><tr><td>.</td><td port="1">6</td></tr><tr><td>..</td><td port="2">3</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo3:1 -> Bloque6:0; Bloque5:1 -> Inodo3:0; 
+			Inodo4 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 4</td></tr>
+				<tr><td>i_uid</td><td>4</td></tr>
+				<tr><td>i_gid</td><td>4</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>APT1</td><td port="1">7</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque7[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 7</td></tr><tr><td>.</td><td port="1">7</td></tr><tr><td>..</td><td port="2">4</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo4:1 -> Bloque7:0; Bloque5:2 -> Inodo4:0; 
+			Inodo5 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 5</td></tr>
+				<tr><td>i_uid</td><td>5</td></tr>
+				<tr><td>i_gid</td><td>5</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>APT1</td><td port="1">8</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque8[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 8</td></tr><tr><td>.</td><td port="1">8</td></tr><tr><td>..</td><td port="2">5</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo5:1 -> Bloque8:0; Bloque5:3 -> Inodo5:0; 
+			Inodo6 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 6</td></tr>
+				<tr><td>i_uid</td><td>6</td></tr>
+				<tr><td>i_gid</td><td>6</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>APT1</td><td port="1">9</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque9[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 9</td></tr><tr><td>.</td><td port="1">9</td></tr><tr><td>..</td><td port="2">6</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo6:1 -> Bloque9:0; Bloque5:4 -> Inodo6:0; Inodo0:2 -> Bloque5:0; Bloque10[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 10</td></tr><tr><td>home</td><td port="1">7</td></tr><tr><td>lib</td><td port="2">8</td></tr><tr><td>lib64</td><td port="3">9</td></tr><tr><td>media</td><td port="4">10</td></tr></table>>];
+			Inodo7 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 7</td></tr>
+				<tr><td>i_uid</td><td>7</td></tr>
+				<tr><td>i_gid</td><td>7</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>APT1</td><td port="1">11</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque11[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 11</td></tr><tr><td>.</td><td port="1">11</td></tr><tr><td>..</td><td port="2">7</td></tr><tr><td>archivos</td><td port="3">21</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo21 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 21</td></tr>
+				<tr><td>i_uid</td><td>21</td></tr>
+				<tr><td>i_gid</td><td>21</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">28</td></tr>
+				<tr><td>APT2</td><td port="2">33</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque28[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 28</td></tr><tr><td>.</td><td port="1">28</td></tr><tr><td>..</td><td port="2">21</td></tr><tr><td>archivos19</td><td port="3">22</td></tr><tr><td>user</td><td port="4">23</td></tr></table>>];
+			Inodo22 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 22</td></tr>
+				<tr><td>i_uid</td><td>22</td></tr>
+				<tr><td>i_gid</td><td>22</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">29</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque29[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 29</td></tr><tr><td>.</td><td port="1">29</td></tr><tr><td>..</td><td port="2">22</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo22:1 -> Bloque29:0; Bloque28:3 -> Inodo22:0; 
+			Inodo23 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 23</td></tr>
+				<tr><td>i_uid</td><td>23</td></tr>
+				<tr><td>i_gid</td><td>23</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">30</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque30[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 30</td></tr><tr><td>.</td><td port="1">30</td></tr><tr><td>..</td><td port="2">23</td></tr><tr><td>docs</td><td port="3">24</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo24 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 24</td></tr>
+				<tr><td>i_uid</td><td>24</td></tr>
+				<tr><td>i_gid</td><td>24</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">31</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque31[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 31</td></tr><tr><td>.</td><td port="1">31</td></tr><tr><td>..</td><td port="2">24</td></tr><tr><td>usac</td><td port="3">25</td></tr><tr><td>Tarea.txt</td><td port="4">31</td></tr></table>>];
+			Inodo25 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 25</td></tr>
+				<tr><td>i_uid</td><td>25</td></tr>
+				<tr><td>i_gid</td><td>25</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">32</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque32[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 32</td></tr><tr><td>.</td><td port="1">32</td></tr><tr><td>..</td><td port="2">25</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo25:1 -> Bloque32:0; Bloque31:3 -> Inodo25:0; 
+			Inodo31 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 31</td></tr>
+				<tr><td>i_uid</td><td>31</td></tr>
+				<tr><td>i_gid</td><td>31</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:03</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:03</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:03</td></tr>
+				<tr><td>APT1</td><td port="1">39</td></tr>
+				<tr><td>APT2</td><td port="2">40</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>1</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque39[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque Archivo 39</td></tr>				<tr><td>9930100208908586014195511668735412267651633820200069776909385917</td></tr></table>>];Inodo31:1 -> Bloque39:0; Bloque40[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque Archivo 40</td></tr>				<tr><td>41690848185</td></tr></table>>];Inodo31:2 -> Bloque40:0; Bloque31:4 -> Inodo31:0; Inodo24:1 -> Bloque31:0; Bloque30:3 -> Inodo24:0; Inodo23:1 -> Bloque30:0; Bloque28:4 -> Inodo23:0; Inodo21:1 -> Bloque28:0; Bloque33[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 33</td></tr><tr><td>carpeta1</td><td port="1">26</td></tr><tr><td>_</td><td port="2">-1</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo26 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 26</td></tr>
+				<tr><td>i_uid</td><td>26</td></tr>
+				<tr><td>i_gid</td><td>26</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">34</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque34[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 34</td></tr><tr><td>.</td><td port="1">34</td></tr><tr><td>..</td><td port="2">26</td></tr><tr><td>carpeta2</td><td port="3">27</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo27 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 27</td></tr>
+				<tr><td>i_uid</td><td>27</td></tr>
+				<tr><td>i_gid</td><td>27</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">35</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque35[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 35</td></tr><tr><td>.</td><td port="1">35</td></tr><tr><td>..</td><td port="2">27</td></tr><tr><td>carpeta3</td><td port="3">28</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo28 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 28</td></tr>
+				<tr><td>i_uid</td><td>28</td></tr>
+				<tr><td>i_gid</td><td>28</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">36</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque36[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 36</td></tr><tr><td>.</td><td port="1">36</td></tr><tr><td>..</td><td port="2">28</td></tr><tr><td>carpeta4</td><td port="3">29</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo29 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 29</td></tr>
+				<tr><td>i_uid</td><td>29</td></tr>
+				<tr><td>i_gid</td><td>29</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">37</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque37[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 37</td></tr><tr><td>.</td><td port="1">37</td></tr><tr><td>..</td><td port="2">29</td></tr><tr><td>carpeta5</td><td port="3">30</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo30 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 30</td></tr>
+				<tr><td>i_uid</td><td>30</td></tr>
+				<tr><td>i_gid</td><td>30</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">38</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque38[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 38</td></tr><tr><td>.</td><td port="1">38</td></tr><tr><td>..</td><td port="2">30</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo30:1 -> Bloque38:0; Bloque37:3 -> Inodo30:0; Inodo29:1 -> Bloque37:0; Bloque36:3 -> Inodo29:0; Inodo28:1 -> Bloque36:0; Bloque35:3 -> Inodo28:0; Inodo27:1 -> Bloque35:0; Bloque34:3 -> Inodo27:0; Inodo26:1 -> Bloque34:0; Bloque33:1 -> Inodo26:0; Inodo21:2 -> Bloque33:0; Bloque11:3 -> Inodo21:0; Inodo7:1 -> Bloque11:0; Bloque10:1 -> Inodo7:0; 
+			Inodo8 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 8</td></tr>
+				<tr><td>i_uid</td><td>8</td></tr>
+				<tr><td>i_gid</td><td>8</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>APT1</td><td port="1">12</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque12[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 12</td></tr><tr><td>.</td><td port="1">12</td></tr><tr><td>..</td><td port="2">8</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo8:1 -> Bloque12:0; Bloque10:2 -> Inodo8:0; 
+			Inodo9 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 9</td></tr>
+				<tr><td>i_uid</td><td>9</td></tr>
+				<tr><td>i_gid</td><td>9</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:34:59</td></tr>
+				<tr><td>APT1</td><td port="1">13</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque13[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 13</td></tr><tr><td>.</td><td port="1">13</td></tr><tr><td>..</td><td port="2">9</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo9:1 -> Bloque13:0; Bloque10:3 -> Inodo9:0; 
+			Inodo10 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 10</td></tr>
+				<tr><td>i_uid</td><td>10</td></tr>
+				<tr><td>i_gid</td><td>10</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>APT1</td><td port="1">14</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque14[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 14</td></tr><tr><td>.</td><td port="1">14</td></tr><tr><td>..</td><td port="2">10</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo10:1 -> Bloque14:0; Bloque10:4 -> Inodo10:0; Inodo0:3 -> Bloque10:0; Bloque15[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 15</td></tr><tr><td>mnt</td><td port="1">11</td></tr><tr><td>opt</td><td port="2">12</td></tr><tr><td>proc</td><td port="3">13</td></tr><tr><td>run</td><td port="4">14</td></tr></table>>];
+			Inodo11 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 11</td></tr>
+				<tr><td>i_uid</td><td>11</td></tr>
+				<tr><td>i_gid</td><td>11</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>APT1</td><td port="1">16</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque16[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 16</td></tr><tr><td>.</td><td port="1">16</td></tr><tr><td>..</td><td port="2">11</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo11:1 -> Bloque16:0; Bloque15:1 -> Inodo11:0; 
+			Inodo12 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 12</td></tr>
+				<tr><td>i_uid</td><td>12</td></tr>
+				<tr><td>i_gid</td><td>12</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>APT1</td><td port="1">17</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque17[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 17</td></tr><tr><td>.</td><td port="1">17</td></tr><tr><td>..</td><td port="2">12</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo12:1 -> Bloque17:0; Bloque15:2 -> Inodo12:0; 
+			Inodo13 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 13</td></tr>
+				<tr><td>i_uid</td><td>13</td></tr>
+				<tr><td>i_gid</td><td>13</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>APT1</td><td port="1">18</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque18[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 18</td></tr><tr><td>.</td><td port="1">18</td></tr><tr><td>..</td><td port="2">13</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo13:1 -> Bloque18:0; Bloque15:3 -> Inodo13:0; 
+			Inodo14 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 14</td></tr>
+				<tr><td>i_uid</td><td>14</td></tr>
+				<tr><td>i_gid</td><td>14</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:00</td></tr>
+				<tr><td>APT1</td><td port="1">19</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque19[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 19</td></tr><tr><td>.</td><td port="1">19</td></tr><tr><td>..</td><td port="2">14</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo14:1 -> Bloque19:0; Bloque15:4 -> Inodo14:0; Inodo0:4 -> Bloque15:0; Bloque20[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 20</td></tr><tr><td>sbin</td><td port="1">15</td></tr><tr><td>snap</td><td port="2">16</td></tr><tr><td>srv</td><td port="3">17</td></tr><tr><td>sys</td><td port="4">18</td></tr></table>>];
+			Inodo15 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 15</td></tr>
+				<tr><td>i_uid</td><td>15</td></tr>
+				<tr><td>i_gid</td><td>15</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>APT1</td><td port="1">21</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque21[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 21</td></tr><tr><td>.</td><td port="1">21</td></tr><tr><td>..</td><td port="2">15</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo15:1 -> Bloque21:0; Bloque20:1 -> Inodo15:0; 
+			Inodo16 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 16</td></tr>
+				<tr><td>i_uid</td><td>16</td></tr>
+				<tr><td>i_gid</td><td>16</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>APT1</td><td port="1">22</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque22[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 22</td></tr><tr><td>.</td><td port="1">22</td></tr><tr><td>..</td><td port="2">16</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo16:1 -> Bloque22:0; Bloque20:2 -> Inodo16:0; 
+			Inodo17 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 17</td></tr>
+				<tr><td>i_uid</td><td>17</td></tr>
+				<tr><td>i_gid</td><td>17</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>APT1</td><td port="1">23</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque23[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 23</td></tr><tr><td>.</td><td port="1">23</td></tr><tr><td>..</td><td port="2">17</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo17:1 -> Bloque23:0; Bloque20:3 -> Inodo17:0; 
+			Inodo18 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 18</td></tr>
+				<tr><td>i_uid</td><td>18</td></tr>
+				<tr><td>i_gid</td><td>18</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>APT1</td><td port="1">24</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque24[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 24</td></tr><tr><td>.</td><td port="1">24</td></tr><tr><td>..</td><td port="2">18</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo18:1 -> Bloque24:0; Bloque20:4 -> Inodo18:0; Inodo0:5 -> Bloque20:0; Bloque25[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 25</td></tr><tr><td>tmp</td><td port="1">19</td></tr><tr><td>var</td><td port="2">20</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];
+			Inodo19 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 19</td></tr>
+				<tr><td>i_uid</td><td>19</td></tr>
+				<tr><td>i_gid</td><td>19</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:01</td></tr>
+				<tr><td>APT1</td><td port="1">26</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque26[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 26</td></tr><tr><td>.</td><td port="1">26</td></tr><tr><td>..</td><td port="2">19</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo19:1 -> Bloque26:0; Bloque25:1 -> Inodo19:0; 
+			Inodo20 [label =<
+			<table border="0" cellborder="1" cellspacing="0">
+			<tr><td colspan="2" port="0">Inodo 20</td></tr>
+				<tr><td>i_uid</td><td>20</td></tr>
+				<tr><td>i_gid</td><td>20</td></tr>
+				<tr><td>i_s</td><td>0</td></tr>
+				<tr><td>i_atime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_ctime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>i_mtime</td><td>2023-10-28 23:35:02</td></tr>
+				<tr><td>APT1</td><td port="1">27</td></tr>
+				<tr><td>APT2</td><td port="2">-1</td></tr>
+				<tr><td>APT3</td><td port="3">-1</td></tr>
+				<tr><td>APT4</td><td port="4">-1</td></tr>
+				<tr><td>APT5</td><td port="5">-1</td></tr>
+				<tr><td>APT6</td><td port="6">-1</td></tr>
+				<tr><td>APT7</td><td port="7">-1</td></tr>
+				<tr><td>APT8</td><td port="8">-1</td></tr>
+				<tr><td>APT9</td><td port="9">-1</td></tr>
+				<tr><td>APT10</td><td port="10">-1</td></tr>
+				<tr><td>APT11</td><td port="11">-1</td></tr>
+				<tr><td>APT12</td><td port="12">-1</td></tr>
+				<tr><td>APT13</td><td port="13">-1</td></tr>
+				<tr><td>APT14</td><td port="14">-1</td></tr>
+				<tr><td>APT15</td><td port="15">-1</td></tr>
+				<tr><td>i_type</td><td>0</td></tr>
+				<tr><td>i_perm</td><td>664</td></tr>
+</table>>];
+Bloque27[label =<<table border="0" cellborder="1" cellspacing="0"><tr><td colspan="2" port="0" >Bloque 27</td></tr><tr><td>.</td><td port="1">27</td></tr><tr><td>..</td><td port="2">20</td></tr><tr><td>_</td><td port="3">-1</td></tr><tr><td>_</td><td port="4">-1</td></tr></table>>];Inodo20:1 -> Bloque27:0; Bloque25:2 -> Inodo20:0; Inodo0:6 -> Bloque25:0; }

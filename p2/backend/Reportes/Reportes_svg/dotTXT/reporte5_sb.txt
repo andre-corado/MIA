@@ -1,0 +1,29 @@
+digraph H{
+	graph [pad="0.5", nodesep="0.5", ranksep="1"];
+	node [shape=plaintext]
+	rankdir=LR;
+	SuperBloque [
+		label=<
+			<table border="0" cellborder="1" cellspacing="0">
+				<tr><td colspan="3" port='0'>SuperBloque</td></tr>
+<tr><td>nombre_hd</td><td port='1'>Disco1.dsk</td></tr>
+<tr><td>fileSystem_type</td><td port='2'>2</td></tr>
+<tr><td>inodes_count</td><td port='3'>34</td></tr>
+<tr><td>blocks_count</td><td port='4'>55</td></tr>
+<tr><td>freeBlocks_count</td><td port='5'>26429</td></tr>
+<tr><td>freeInodes_count</td><td port='6'>79392</td></tr>
+<tr><td>mTime</td><td port='7'>2023-10-28 23:34:52</td></tr>
+<tr><td>umTime</td><td port='8'>2023-10-28 23:34:52</td></tr>
+<tr><td>mnt_count</td><td port='9'>1.0</td></tr>
+<tr><td>magic</td><td port='10'>61267</td></tr>
+<tr><td>inode_s</td><td port='11'>101</td></tr>
+<tr><td>block_s</td><td port='12'>64</td></tr>
+<tr><td>first_ino</td><td port='13'>0</td></tr>
+<tr><td>first_bio</td><td port='14'>0</td></tr>
+<tr><td>bmInode_start</td><td port='15'>210</td></tr>
+<tr><td>bmBlock_start</td><td port='16'>26688</td></tr>
+<tr><td>inode_start</td><td port='17'>106122</td></tr>
+<tr><td>block_start</td><td port='18'>2780400</td></tr>
+		</table>
+	>];
+}

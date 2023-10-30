@@ -1,0 +1,17 @@
+from Carpetas_Archivos.Ejecutar_comandos.ejec_mkdir import parametros_mkdir
+from Carpetas_Archivos.Ejecutar_comandos.ejec_mkfile import parametros_mkfile
+from Discos.Comandos.mount import ParticionesMontadas
+from Discos.Ejecutar_comandos.ejec_fdisk import parametros_fdisk
+from Discos.Ejecutar_comandos.ejec_mkdisk import comandos_mkdisk
+from Discos.Ejecutar_comandos.ejec_mkfs import parametros_mkfs
+from Discos.Ejecutar_comandos.ejec_mount import parametros_mount
+from Discos.Ejecutar_comandos.ejec_rmdisk import parametros_rmdisk
+from Reportes.Ejecutar_reportes import parametros_rep
+from Users_Grupos.ejecutar_comandos.ejec_login import parametros_login
+from Users_Grupos.ejecutar_comandos.ejec_logout import parametros_logout
+from Users_Grupos.ejecutar_comandos.ejec_mkgrp import parametros_mkgrp
+from Users_Grupos.ejecutar_comandos.ejec_mkusr import parametros_mkusr
+from Users_Grupos.ejecutar_comandos.ejec_rmgrp import parametros_rmgrp
+from Users_Grupos.ejecutar_comandos.ejec_rmusr import parametros_rmusr
+from Utilidades.utilidades import printError
+import re

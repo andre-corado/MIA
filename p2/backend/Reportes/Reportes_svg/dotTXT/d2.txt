@@ -1,0 +1,24 @@
+digraph G {
+
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+node [shape=plaintext];
+
+	tabla [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+		<tr rowspan="2">
+			<td rowspan="2"><b>MBR</b></td>
+			<td colspan="7"><b>Extendida</b>  <b>20.00%</b></td>
+			<td rowspan="2"><b>nil</b>  <b>80.00%</b></td>
+		</tr>
+		<tr>
+			<td><b>EBR</b></td>
+			<td><b>Logica</b>  <b>2.00%</b></td>
+			<td><b>EBR</b></td>
+			<td><b>Logica</b>  <b>2.00%</b></td>
+			<td><b>EBR</b></td>
+			<td><b>Logica</b>  <b>2.00%</b></td>
+			<td><b>nil</b>  <b>14.00%</b></td>
+		</tr>
+	</table>>];
+
+}

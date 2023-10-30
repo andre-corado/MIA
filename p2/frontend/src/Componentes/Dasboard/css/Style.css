@@ -1,0 +1,19 @@
+/*          TEXT AREA       */
+#container-textArea1{
+    width: 74%;
+}
+
+.lbl-titulo{
+    font-size: 3vh;
+    font-weight: bold;
+    color: white;
+}
+
+/* CSS DE LOS TEXTAREA*/
+#textArea-salida{
+    resize: none;
+}
+
+#textArea-entrada{
+    resize: none;
+}
